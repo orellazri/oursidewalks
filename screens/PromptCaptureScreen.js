@@ -1,9 +1,24 @@
+import { useState } from "react";
 import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 export default function PromptCaptureScreen({ navigation }) {
+  const [image, setImage] = useState(null);
+
   const openCamera = () => {
     navigation.navigate("CameraCapture");
+  };
+
+  const openGallery = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
   return (
@@ -26,7 +41,7 @@ export default function PromptCaptureScreen({ navigation }) {
           <Text style={styles.buttonTitle}>מצלמה</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={openGallery}>
             <FontAwesome name="photo" size={70} color="#ffffff" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>גלריה</Text>
