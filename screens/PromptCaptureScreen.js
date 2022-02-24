@@ -1,8 +1,11 @@
-import React from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 
-export default function PromptCaptureScreen() {
+export default function PromptCaptureScreen({ navigation }) {
+  const openCamera = () => {
+    navigation.navigate("CameraCapture");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Title */}
@@ -17,7 +20,7 @@ export default function PromptCaptureScreen() {
       {/* Buttons */}
       <View style={styles.buttons}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={openCamera}>
             <AntDesign name="camerao" size={70} color="#ffffff" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>מצלמה</Text>

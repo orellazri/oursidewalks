@@ -6,6 +6,7 @@ import { setCustomText } from "react-native-global-props";
 
 import WelcomeScreen from "./screens/WelcomeScreen";
 import PromptCaptureScreen from "./screens/PromptCaptureScreen";
+import CameraCaptureScreen from "./screens/CameraCaptureScreen";
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
@@ -30,6 +31,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
+        <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
