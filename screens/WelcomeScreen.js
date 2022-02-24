@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 export default function WelcomeScreen({ navigation }) {
   const handlePressButton = () => {
@@ -20,6 +21,9 @@ export default function WelcomeScreen({ navigation }) {
 
       {/* Button */}
       <TouchableOpacity style={styles.button} onPress={handlePressButton}></TouchableOpacity>
+
+      {/* Status Bar */}
+      <StatusBar style="dark" />
     </SafeAreaView>
   );
 }
