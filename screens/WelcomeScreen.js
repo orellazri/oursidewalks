@@ -1,10 +1,15 @@
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
+  const handlePressButton = () => {
+    navigation.navigate("PromptCapture");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      {/* Title */}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>דווחו על מטרד בדרך</Text>
         <View style={styles.chevrons}>
@@ -12,7 +17,9 @@ export default function WelcomeScreen() {
           <Ionicons name="chevron-down" size={32} color="#BB0101" style={{ marginTop: -15 }} />
         </View>
       </View>
-      <TouchableOpacity style={styles.button}></TouchableOpacity>
+
+      {/* Button */}
+      <TouchableOpacity style={styles.button} onPress={handlePressButton}></TouchableOpacity>
     </SafeAreaView>
   );
 }

@@ -1,0 +1,75 @@
+import React from "react";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
+
+export default function PromptCaptureScreen() {
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Title */}
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>תעדו את המפגע</Text>
+        <View style={styles.chevrons}>
+          <Ionicons name="chevron-down" size={32} color="#FDD15A" />
+          <Ionicons name="chevron-down" size={32} color="#FDD15A" style={{ marginTop: -15 }} />
+        </View>
+      </View>
+
+      {/* Buttons */}
+      <View style={styles.buttons}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button}>
+            <AntDesign name="camerao" size={70} color="#ffffff" />
+          </TouchableOpacity>
+          <Text style={styles.buttonTitle}>מצלמה</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button}>
+            <FontAwesome name="photo" size={70} color="#ffffff" />
+          </TouchableOpacity>
+          <Text style={styles.buttonTitle}>גלריה</Text>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F4F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  titleContainer: {
+    marginBottom: 80,
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: "Assistant-Bold",
+  },
+  chevrons: {
+    alignSelf: "center",
+    marginTop: 10,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  buttonContainer: {
+    alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#BB0101",
+    borderRadius: 100,
+    width: 135,
+    height: 135,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonTitle: {
+    fontFamily: "Assistant-Bold",
+    fontSize: 20,
+    marginTop: 10,
+  },
+});

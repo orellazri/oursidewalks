@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import { setCustomText } from "react-native-global-props";
 
 import WelcomeScreen from "./screens/WelcomeScreen";
+import PromptCaptureScreen from "./screens/PromptCaptureScreen";
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
@@ -28,6 +29,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
