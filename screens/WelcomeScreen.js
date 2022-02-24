@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
   },
   chevrons: {
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: 15,
   },
   button: {
     backgroundColor: "#BB0101",
     borderRadius: 100,
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 200,
     borderWidth: 30,
     borderColor: "#D67575",
   },
