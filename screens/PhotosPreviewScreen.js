@@ -31,6 +31,7 @@ export default function PhotosPreviewScreen({ navigation }) {
         renderItem={({ item }) => <Image source={item} style={styles.photo} />}
         keyExtractor={(photo) => photo.uri}
         style={styles.list}
+        contentContainerStyle={{ alignItems: "center" }}
       />
 
       {/* Buttons */}
@@ -81,7 +82,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   photo: {
-    aspectRatio: 3 / 4,
+    aspectRatio: 3 / 5,
+    width: 300,
+    resizeMode: "cover",
     marginHorizontal: 10,
     borderRadius: 10,
   },
