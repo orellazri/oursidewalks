@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
@@ -9,6 +9,11 @@ export default function WelcomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.triangle}></View>
+
+      {/* Logo */}
+      <Image source={require("../assets/images/logo.png")} style={styles.logo} />
+
       {/* Title */}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>דווחו על מטרד בדרך</Text>
@@ -19,7 +24,9 @@ export default function WelcomeScreen({ navigation }) {
       </View>
 
       {/* Button */}
-      <TouchableOpacity style={styles.button} onPress={handlePressButton}></TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handlePressButton}>
+        <Image source={require("../assets/images/start-button.png")} style={styles.buttonImage} />
+      </TouchableOpacity>
 
       {/* Status Bar */}
       <StatusBar style="dark" />
@@ -34,9 +41,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  triangle: {
+    width: 0,
+    height: 0,
+    position: "absolute",
+    top: 0,
+    borderLeftWidth: 500,
+    borderRightWidth: 500,
+    borderTopWidth: 450,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderTopColor: "#FFCB39",
+  },
+  logo: {
+    position: "absolute",
+    top: 50,
+    right: 20,
+    width: 150,
+    resizeMode: "contain",
+  },
   titleContainer: {
     position: "absolute",
-    top: 190,
+    top: 210,
   },
   title: {
     fontSize: 20,
@@ -44,14 +70,13 @@ const styles = StyleSheet.create({
   },
   chevrons: {
     alignSelf: "center",
-    marginTop: 15,
+    marginTop: 7,
   },
-  button: {
-    backgroundColor: "#BB0101",
-    borderRadius: 100,
-    width: 200,
-    height: 200,
-    borderWidth: 30,
-    borderColor: "#D67575",
+  button: {},
+  buttonImage: {
+    width: 230,
+    height: 230,
+    resizeMode: "contain",
+    alignSelf: "center",
   },
 });
