@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image } from "react-native";
 import { Camera } from "expo-camera";
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function CameraCaptureScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -15,10 +15,18 @@ export default function CameraCaptureScreen({ navigation }) {
     })();
   }, []);
 
-  const takePicture = async () => {
+  const takePhoto = async () => {
     if (camera == null) return;
     const photo = await camera.current.takePictureAsync();
     setPhoto(photo);
+  };
+
+  const retakePhoto = () => {
+    setPhoto(null);
+  };
+
+  const confirmPhoto = () => {
+    navigation.navigate("PhotosPreview");
   };
 
   if (hasPermission === null) {
@@ -36,17 +44,24 @@ export default function CameraCaptureScreen({ navigation }) {
     <View style={{ flex: 1 }}>
       {!photo && (
         <Camera style={{ flex: 1 }} ref={camera}>
-          <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-            <AntDesign name="camerao" size={50} color="#000000" />
-          </TouchableOpacity>
+          <View style={styles.singleButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={takePhoto}>
+              <AntDesign name="camerao" size={50} color="black" />
+            </TouchableOpacity>
+          </View>
         </Camera>
       )}
       {photo && (
         <View>
           <Image source={photo} style={{ width: "100%", height: "100%" }}></Image>
-          <TouchableOpacity style={styles.captureButton}>
-            <Feather name="check" size={50} color="#000000" />
-          </TouchableOpacity>
+          <View style={styles.twoButtonsContainer}>
+            <TouchableOpacity style={styles.button} onPress={retakePhoto}>
+              <MaterialCommunityIcons name="camera-retake-outline" size={50} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
+              <Feather name="check" size={50} color="black" />
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
@@ -54,12 +69,23 @@ export default function CameraCaptureScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  captureButton: {
-    width: 90,
-    height: 90,
-    backgroundColor: "#ffffff",
+  singleButtonContainer: {
     position: "absolute",
     bottom: 50,
+    alignSelf: "center",
+  },
+  twoButtonsContainer: {
+    position: "absolute",
+    bottom: 50,
+    flexDirection: "row",
+    alignSelf: "center",
+    justifyContent: "space-between",
+    width: "60%",
+  },
+  button: {
+    width: 90,
+    height: 90,
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",

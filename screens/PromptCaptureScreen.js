@@ -40,13 +40,13 @@ export default function PromptCaptureScreen({ navigation }) {
       <View style={styles.buttons}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={openCamera}>
-            <AntDesign name="camerao" size={70} color="#ffffff" />
+            <AntDesign name="camerao" size={70} color="white" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>מצלמה</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={openGallery}>
-            <FontAwesome name="photo" size={70} color="#ffffff" />
+            <FontAwesome name="photo" size={70} color="white" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>גלריה</Text>
         </View>
