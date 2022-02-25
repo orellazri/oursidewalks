@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+
 import Logo from "../components/Logo";
 
 export default function PromptCaptureScreen({ navigation }) {
