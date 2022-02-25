@@ -1,9 +1,15 @@
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+import { usePhotos } from "../utils/PhotosContext";
+import { useEffect } from "react";
+
 export default function PhotosPreviewScreen({ navigation }) {
+  const { photos, setPhotos } = usePhotos();
+
   const handleClose = () => {
     navigation.navigate("PromptCapture");
+    setPhotos([]);
   };
 
   return (
@@ -17,6 +23,15 @@ export default function PhotosPreviewScreen({ navigation }) {
         {/* Placeholder to align title to center */}
         <View></View>
       </View>
+
+      {/* Photos */}
+      <FlatList
+        horizontal
+        data={photos}
+        renderItem={({ item }) => <Image source={item} style={styles.photo} />}
+        keyExtractor={(photo) => photo.uri}
+        style={styles.list}
+      />
     </SafeAreaView>
   );
 }
@@ -38,5 +53,14 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     marginLeft: 30,
+  },
+  list: {
+    marginTop: 30,
+  },
+  photo: {
+    aspectRatio: 3 / 4,
+    resizeMode: "cover",
+    marginHorizontal: 10,
+    borderRadius: 10,
   },
 });

@@ -3,7 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image } from "r
 import { Camera } from "expo-camera";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { usePhotos } from "../utils/PhotosContext";
+
 export default function CameraCaptureScreen({ navigation }) {
+  const { photos, setPhotos } = usePhotos();
+
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
   const camera = useRef(null);
@@ -26,6 +30,7 @@ export default function CameraCaptureScreen({ navigation }) {
   };
 
   const confirmPhoto = () => {
+    setPhotos([...photos, photo]);
     navigation.navigate("PhotosPreview");
   };
 
