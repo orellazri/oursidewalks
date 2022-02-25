@@ -2,6 +2,8 @@ import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "r
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
+import Logo from "../components/Logo.js";
+
 export default function WelcomeScreen({ navigation }) {
   const handlePressButton = () => {
     navigation.navigate("PromptCapture");
@@ -12,7 +14,7 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.triangle}></View>
 
       {/* Logo */}
-      <Image source={require("../assets/images/logo.png")} style={styles.logo} />
+      <Logo />
 
       {/* Title */}
       <View style={styles.titleContainer}>
@@ -52,13 +54,6 @@ const styles = StyleSheet.create({
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
     borderTopColor: "#FFCB39",
-  },
-  logo: {
-    position: "absolute",
-    top: 50,
-    right: 20,
-    width: 150,
-    resizeMode: "contain",
   },
   titleContainer: {
     position: "absolute",

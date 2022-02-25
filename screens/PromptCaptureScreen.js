@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import Logo from "../components/Logo";
 
 export default function PromptCaptureScreen({ navigation }) {
   const [image, setImage] = useState(null);
@@ -23,6 +24,9 @@ export default function PromptCaptureScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Logo */}
+      <Logo />
+
       {/* Title */}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>תעדו את המפגע</Text>
