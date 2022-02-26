@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, Dimensions } from "react-native";
 import { Camera } from "expo-camera";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -11,6 +11,9 @@ export default function CameraCaptureScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
   const camera = useRef(null);
+
+  const { width, height } = Dimensions.get("window");
+  const screenRatio = height / width;
 
   useEffect(() => {
     (async () => {
@@ -48,7 +51,7 @@ export default function CameraCaptureScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       {!photo && (
-        <Camera style={{ flex: 1 }} ref={camera}>
+        <Camera style={{ width: "100%", height: "80%" }} ref={camera}>
           <View style={styles.singleButtonContainer}>
             <TouchableOpacity style={styles.button} onPress={takePhoto}>
               <AntDesign name="camerao" size={50} color="black" />

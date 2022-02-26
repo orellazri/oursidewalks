@@ -41,13 +41,13 @@ export default function PromptCaptureScreen({ navigation }) {
       <View style={styles.buttons}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={openCamera}>
-            <AntDesign name="camerao" size={70} color="white" />
+            <AntDesign name="camerao" size={65} color="white" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>מצלמה</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={openGallery}>
-            <FontAwesome name="photo" size={70} color="white" />
+            <FontAwesome name="photo" size={65} color="white" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>גלריה</Text>
         </View>
@@ -60,11 +60,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F4F4F4",
-    justifyContent: "center",
     alignItems: "center",
   },
   titleContainer: {
-    marginBottom: 80,
+    marginTop: "20%",
   },
   title: {
     fontSize: 20,
@@ -78,6 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
+    marginTop: "15%",
   },
   buttonContainer: {
     alignItems: "center",
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#BB0101",
     borderRadius: 100,
-    width: 135,
-    height: 135,
+    width: 125,
+    height: 125,
     justifyContent: "center",
     alignItems: "center",
   },
