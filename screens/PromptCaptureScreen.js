@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -21,7 +20,7 @@ export default function PromptCaptureScreen({ navigation }) {
     });
 
     if (!result.cancelled) {
-      setPhotos([...photos, result]);
+      setPhotos([result, ...photos]);
       navigation.navigate("PhotosPreview");
     }
   };

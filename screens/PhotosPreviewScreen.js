@@ -1,15 +1,34 @@
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList, useWindowDimensions } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 import { usePhotos } from "../utils/PhotosContext";
-import { useEffect } from "react";
 
 export default function PhotosPreviewScreen({ navigation }) {
   const { photos, setPhotos } = usePhotos();
 
+  const window = useWindowDimensions();
+
   const handleClose = () => {
     navigation.navigate("PromptCapture");
     setPhotos([]);
+  };
+
+  const openCamera = () => {
+    navigation.push("CameraCapture");
+  };
+
+  const openGallery = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      asepct: [3, 4],
+    });
+
+    if (!result.cancelled) {
+      setPhotos([result, ...photos]);
+      navigation.navigate("PhotosPreview");
+    }
   };
 
   return (
@@ -28,7 +47,7 @@ export default function PhotosPreviewScreen({ navigation }) {
       <FlatList
         horizontal
         data={photos}
-        renderItem={({ item }) => <Image source={item} style={styles.photo} />}
+        renderItem={({ item }) => <Image source={item} style={styles.photo(window)} />}
         keyExtractor={(photo) => photo.uri}
         style={styles.list}
         contentContainerStyle={{ alignItems: "center" }}
@@ -37,13 +56,13 @@ export default function PhotosPreviewScreen({ navigation }) {
       {/* Buttons */}
       <View style={styles.buttons}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={{}}>
+          <TouchableOpacity style={styles.button} onPress={openCamera}>
             <AntDesign name="camerao" size={43} color="white" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>מצלמה</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={{}}>
+          <TouchableOpacity style={styles.button} onPress={openGallery}>
             <FontAwesome name="photo" size={40} color="white" />
           </TouchableOpacity>
           <Text style={styles.buttonTitle}>גלריה</Text>
@@ -81,13 +100,13 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 30,
   },
-  photo: {
+  photo: (window) => ({
     aspectRatio: 3 / 5,
-    width: 300,
+    width: window.width / 1.5,
     resizeMode: "cover",
     marginHorizontal: 10,
-    borderRadius: 10,
-  },
+    borderRadius: 15,
+  }),
   buttons: {
     flexDirection: "row",
     justifyContent: "space-around",

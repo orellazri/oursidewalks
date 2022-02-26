@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, useWindowDimensions, Platform } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, Platform } from "react-native";
 import { Camera } from "expo-camera";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -15,8 +15,6 @@ export default function CameraCaptureScreen({ navigation }) {
   const [imagePadding, setImagePadding] = useState(0);
 
   const camera = useRef(null);
-
-  const window = useWindowDimensions();
 
   useEffect(() => {
     (async () => {
@@ -83,7 +81,7 @@ export default function CameraCaptureScreen({ navigation }) {
   };
 
   const confirmPhoto = () => {
-    setPhotos([...photos, photo]);
+    setPhotos([photo, ...photos]);
     navigation.navigate("PhotosPreview");
   };
 
