@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    marginTop: 30,
+    marginTop: "10%",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: "center",
+    marginBottom: "2%",
   },
   button: {
     backgroundColor: "#BB0101",
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 50,
-    marginTop: 30,
+    marginVertical: "5%",
     flexDirection: "row",
     alignItems: "flex-end",
   },

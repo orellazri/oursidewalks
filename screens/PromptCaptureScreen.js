@@ -4,9 +4,10 @@ import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 import Logo from "../components/Logo";
+import { usePhotos } from "../utils/PhotosContext";
 
 export default function PromptCaptureScreen({ navigation }) {
-  const [image, setImage] = useState(null);
+  const { photos, setPhotos } = usePhotos();
 
   const openCamera = () => {
     navigation.navigate("CameraCapture");
@@ -16,10 +17,12 @@ export default function PromptCaptureScreen({ navigation }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      asepct: [3, 4],
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setPhotos([...photos, result]);
+      navigation.navigate("PhotosPreview");
     }
   };
 
