@@ -9,6 +9,7 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 import PromptCaptureScreen from "./screens/PromptCaptureScreen";
 import CameraCaptureScreen from "./screens/CameraCaptureScreen";
 import PhotosPreviewScreen from "./screens/PhotosPreviewScreen";
+import ChooseLocationScreen from "./screens/ChooseLocationScreen";
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
@@ -32,6 +33,7 @@ export default function App() {
     <PhotosProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
           <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />

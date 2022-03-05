@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     borderTopColor: "#FFCB39",
   }),
   titleContainer: {
-    marginTop: "20%",
+    marginTop: "15%",
   },
   title: {
     fontSize: 20,

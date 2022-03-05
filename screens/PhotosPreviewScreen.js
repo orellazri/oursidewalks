@@ -31,6 +31,10 @@ export default function PhotosPreviewScreen({ navigation }) {
     }
   };
 
+  const handleContinue = () => {
+    navigation.navigate("ChooseLocation");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Title */}
@@ -70,7 +74,7 @@ export default function PhotosPreviewScreen({ navigation }) {
       </View>
 
       {/* Continue Button */}
-      <TouchableOpacity style={styles.continueButton}>
+      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
         <Text style={styles.continueButtonText}>המשך</Text>
         <AntDesign name="arrowleft" size={20} color="black" />
       </TouchableOpacity>
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
   },
   photo: (window) => ({
     aspectRatio: 3 / 5,
-    width: window.width / 1.5,
+    width: window.width / 1.6,
     resizeMode: "cover",
     marginHorizontal: 10,
     borderRadius: 15,
