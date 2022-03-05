@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, Platform } from "react-native";
 import { Camera } from "expo-camera";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -10,6 +10,10 @@ export default function CameraCaptureScreen({ navigation }) {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const [isRatioSet, setIsRatioSet] = useState(false);
+  const [ratio, setRatio] = useState("4:3");
+  const [imagePadding, setImagePadding] = useState(0);
+
   const camera = useRef(null);
 
   useEffect(() => {
@@ -18,6 +22,53 @@ export default function CameraCaptureScreen({ navigation }) {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  // Sets he camera ratio and padding
+  const prepareRatio = async () => {
+    let desiredRatio = "4:3";
+    if (Platform.OS == "android") {
+      const ratios = await camera.getSupportedRatiosAsync();
+
+      // Calculate the width/height of each of the supported camera ratios
+      // These width/height are measured in landscape mode
+      // find the ratio that is closest to the screen ratio without going over
+      let distances = {};
+      let realRatios = {};
+      let minDistance = null;
+      for (const ratio of ratios) {
+        const parts = ratio.split(":");
+        const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
+        realRatios[ratio] = realRatio;
+        // ratio can't be taller than screen, so we don't want an abs()
+        const distance = screenRatio - realRatio;
+        distances[ratio] = realRatio;
+        if (minDistance == null) {
+          minDistance = ratio;
+        } else {
+          if (distance >= 0 && distance < distances[minDistance]) {
+            minDistance = ratio;
+          }
+        }
+      }
+
+      // set the best match
+      desiredRatio = minDistance;
+      //  calculate the difference between the camera width and the screen height
+      const remainder = Math.floor((height - realRatios[desiredRatio] * width) / 2);
+      // set the preview padding and preview ratio
+      setImagePadding(remainder);
+      setRatio(desiredRatio);
+      // Set a flag so we don't do this
+      // calculation each time the screen refreshes
+      setIsRatioSet(true);
+    }
+  };
+
+  const handleCameraReady = async () => {
+    if (!isRatioSet) {
+      await prepareRatio();
+    }
+  };
 
   const takePhoto = async () => {
     if (camera == null) return;
@@ -30,7 +81,7 @@ export default function CameraCaptureScreen({ navigation }) {
   };
 
   const confirmPhoto = () => {
-    setPhotos([...photos, photo]);
+    setPhotos([photo, ...photos]);
     navigation.navigate("PhotosPreview");
   };
 
@@ -47,8 +98,14 @@ export default function CameraCaptureScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
+      {/* Camera */}
       {!photo && (
-        <Camera style={{ flex: 1 }} ref={camera}>
+        <Camera
+          style={{ flex: 1, marginTop: imagePadding, marginBottom: imagePadding }}
+          ref={camera}
+          ratio={ratio}
+          onCameraReady={handleCameraReady}
+        >
           <View style={styles.singleButtonContainer}>
             <TouchableOpacity style={styles.button} onPress={takePhoto}>
               <AntDesign name="camerao" size={50} color="black" />
@@ -56,6 +113,8 @@ export default function CameraCaptureScreen({ navigation }) {
           </View>
         </Camera>
       )}
+
+      {/* Photo preview */}
       {photo && (
         <View>
           <Image source={photo} style={{ width: "100%", height: "100%" }}></Image>

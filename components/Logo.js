@@ -7,10 +7,11 @@ export default function Logo() {
 
 const styles = StyleSheet.create({
   logo: {
-    position: "absolute",
-    top: 50,
     right: 20,
     width: 150,
     resizeMode: "contain",
+    alignSelf: "flex-end",
+    marginLeft: 40,
+    marginTop: 10,
   },
 });
