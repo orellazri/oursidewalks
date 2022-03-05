@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, SafeAreaView, Text } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
 export default function ChooseLocationScreen() {
   const [location, setLocation] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
+
+  const initialLocation = {
+    longitude: 34.777787,
+    latitude: 31.224496,
+    longitudeDelta: 5,
+    latitudeDelta: 5,
+  };
 
   useEffect(() => {
     (async () => {
@@ -30,7 +37,7 @@ export default function ChooseLocationScreen() {
 
   return (
     <View style={styles.container}>
-      {location && <MapView style={styles.map} initialRegion={location} showsUserLocation={true} />}
+      <MapView style={styles.map} initialRegion={initialLocation} region={location} showsUserLocation={true}></MapView>
     </View>
   );
 }
