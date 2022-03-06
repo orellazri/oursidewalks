@@ -3,6 +3,7 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 import { usePhotos } from "../utils/PhotosContext";
+import ContinueButton from "../components/ContinueButton";
 
 export default function PhotosPreviewScreen({ navigation }) {
   const { photos, setPhotos } = usePhotos();
@@ -74,10 +75,7 @@ export default function PhotosPreviewScreen({ navigation }) {
       </View>
 
       {/* Continue Button */}
-      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
-        <Text style={styles.continueButtonText}>המשך</Text>
-        <AntDesign name="arrowleft" size={20} color="black" />
-      </TouchableOpacity>
+      <ContinueButton onPress={handleContinue} />
     </SafeAreaView>
   );
 }
@@ -133,19 +131,5 @@ const styles = StyleSheet.create({
     fontFamily: "Assistant-Bold",
     fontSize: 20,
     marginTop: 10,
-  },
-  continueButton: {
-    backgroundColor: "#FFCB39",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 50,
-    marginVertical: "5%",
-    flexDirection: "row",
-    alignItems: "flex-end",
-  },
-  continueButtonText: {
-    fontFamily: "Assistant-Bold",
-    fontSize: 18,
-    marginRight: 10,
   },
 });

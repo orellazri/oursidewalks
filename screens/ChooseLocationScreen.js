@@ -5,6 +5,7 @@ import * as Location from "expo-location";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
 
 import ProgressBar from "../components/ProgressBar";
+import ContinueButton from "../components/ContinueButton";
 
 export default function ChooseLocationScreen() {
   const [location, setLocation] = useState(null);
@@ -33,6 +34,8 @@ export default function ChooseLocationScreen() {
     setLocationText("");
   };
 
+  const handleContinue = () => {};
+
   if (hasPermission === null) {
     return <View />;
   }
@@ -46,7 +49,10 @@ export default function ChooseLocationScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Progress bar */}
       <ProgressBar percent="25%" />
+
+      {/* Location input */}
       <View style={styles.inputContainer}>
         <EvilIcons name="location" size={23} color="#777" styles={styles.searchIcon} />
         <TextInput style={styles.locationInput} placeholder="הזן מיקום..." value={locationText} onChangeText={setLocationText} />
@@ -54,6 +60,13 @@ export default function ChooseLocationScreen() {
           <AntDesign name="close" size={23} color="black" />
         </TouchableOpacity>
       </View>
+
+      {/* Continue button */}
+      <View style={styles.continueButton}>
+        <ContinueButton onPress={handleContinue} />
+      </View>
+
+      {/* Map */}
       <MapView style={styles.map} initialRegion={initialLocation} region={location} showsUserLocation={true}></MapView>
     </View>
   );
@@ -94,5 +107,10 @@ const styles = StyleSheet.create({
   closeIcon: {
     position: "absolute",
     right: 10,
+  },
+  continueButton: {
+    position: "absolute",
+    zIndex: 2,
+    bottom: "5%",
   },
 });
