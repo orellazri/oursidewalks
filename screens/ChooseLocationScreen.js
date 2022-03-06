@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, SafeAreaView, Text } from "react-native";
+import { View, StyleSheet, Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import { AntDesign, EvilIcons } from "@expo/vector-icons";
+
+import ProgressBar from "../components/ProgressBar";
 
 export default function ChooseLocationScreen() {
   const [location, setLocation] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
+  const [locationText, setLocationText] = useState("");
 
   const initialLocation = {
     longitude: 34.777787,
@@ -24,6 +28,11 @@ export default function ChooseLocationScreen() {
     })();
   }, []);
 
+  const clearLocationText = () => {
+    console.log("Hi there");
+    setLocationText("");
+  };
+
   if (hasPermission === null) {
     return <View />;
   }
@@ -37,6 +46,14 @@ export default function ChooseLocationScreen() {
 
   return (
     <View style={styles.container}>
+      <ProgressBar percent="25%" />
+      <View style={styles.inputContainer}>
+        <EvilIcons name="location" size={23} color="#777" styles={styles.searchIcon} />
+        <TextInput style={styles.locationInput} placeholder="הזן מיקום..." value={locationText} onChangeText={setLocationText} />
+        <TouchableOpacity style={styles.closeIcon} onPerss={clearLocationText}>
+          <AntDesign name="close" size={23} color="black" />
+        </TouchableOpacity>
+      </View>
       <MapView style={styles.map} initialRegion={initialLocation} region={location} showsUserLocation={true}></MapView>
     </View>
   );
@@ -45,12 +62,37 @@ export default function ChooseLocationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height,
+    zIndex: 0,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    position: "absolute",
+    top: "10%",
+    zIndex: 1,
+    paddingVertical: 7,
+    paddingHorizontal: 20,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    width: "90%",
+    backgroundColor: "white",
+    shadowColor: "black",
+    elevation: 4,
+    shadowColor: "black",
+    shadowRadius: 4,
+  },
+  locationInput: {
+    paddingLeft: 8,
+  },
+  closeIcon: {
+    position: "absolute",
+    right: 10,
   },
 });
