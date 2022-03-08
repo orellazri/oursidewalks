@@ -33,11 +33,11 @@ export default function App() {
     <PhotosProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
           <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
           <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
+          <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PhotosProvider>
