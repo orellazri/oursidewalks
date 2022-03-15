@@ -10,6 +10,7 @@ import PromptCaptureScreen from "./screens/PromptCaptureScreen";
 import CameraCaptureScreen from "./screens/CameraCaptureScreen";
 import PhotosPreviewScreen from "./screens/PhotosPreviewScreen";
 import ChooseLocationScreen from "./screens/ChooseLocationScreen";
+import ChooseHazardType from "./screens/ChooseHazardType";
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
@@ -33,6 +34,7 @@ export default function App() {
     <ReportProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
           <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
