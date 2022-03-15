@@ -4,10 +4,10 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
 
-import ProgressBar from "../components/ProgressBar";
 import ContinueButton from "../components/ContinueButton";
+import BackButton from "../components/BackButton";
 
-export default function ChooseLocationScreen() {
+export default function ChooseLocationScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [locationText, setLocationText] = useState("");
@@ -34,6 +34,10 @@ export default function ChooseLocationScreen() {
     setLocationText("");
   };
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   const handleContinue = () => {};
 
   if (hasPermission === null) {
@@ -49,8 +53,8 @@ export default function ChooseLocationScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Progress bar */}
-      <ProgressBar percent="25%" />
+      {/* Back Button */}
+      <BackButton onPress={handleBack} />
 
       {/* Location input */}
       <View style={styles.inputContainer}>
