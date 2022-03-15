@@ -3,10 +3,10 @@ import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 import Logo from "../components/Logo";
-import { usePhotos } from "../utils/PhotosContext";
+import { useReport } from "../utils/ReportContext";
 
 export default function PromptCaptureScreen({ navigation }) {
-  const { photos, setPhotos } = usePhotos();
+  const { photos, setPhotos } = useReport();
 
   const openCamera = () => {
     navigation.navigate("CameraCapture");

@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, Platform
 import { Camera } from "expo-camera";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { usePhotos } from "../utils/PhotosContext";
+import { useReport } from "../utils/ReportContext";
 
 export default function CameraCaptureScreen({ navigation }) {
-  const { photos, setPhotos } = usePhotos();
+  const { photos, setPhotos } = useReport();
 
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);

@@ -2,11 +2,11 @@ import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
-import { usePhotos } from "../utils/PhotosContext";
+import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
 
 export default function PhotosPreviewScreen({ navigation }) {
-  const { photos, setPhotos } = usePhotos();
+  const { photos, setPhotos } = useReport();
 
   const window = useWindowDimensions();
 

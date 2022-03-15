@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import { setCustomText } from "react-native-global-props";
 
-import { PhotosProvider } from "./utils/PhotosContext";
+import { ReportProvider } from "./utils/ReportContext";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import PromptCaptureScreen from "./screens/PromptCaptureScreen";
 import CameraCaptureScreen from "./screens/CameraCaptureScreen";
@@ -30,7 +30,7 @@ export default function App() {
   setCustomText({ style: { fontFamily: "Assistant" } });
 
   return (
-    <PhotosProvider>
+    <ReportProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -40,6 +40,6 @@ export default function App() {
           <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </PhotosProvider>
+    </ReportProvider>
   );
 }
