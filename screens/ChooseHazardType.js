@@ -1,26 +1,43 @@
-import { useState } from "react";
-import { Text, SafeAreaView, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { useState, useEffect } from "react";
+import { Text, SafeAreaView, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { collection, getDocs } from "firebase/firestore";
+
+import { db } from "../utils/firebase";
 
 export default function ChooseHazardType() {
+  const [hazardTypes, setHazardTypes] = useState([]);
   const [chosenId, setChosenId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const types = [
-    { id: 1, title: "חניה על המדרכה" },
-    { id: 2, title: "פחים" },
-    { id: 3, title: "בור או שיבוש במדרכה" },
-  ];
+  useEffect(async () => {
+    const querySnapshot = await getDocs(collection(db, "hazard-types"));
+    let items = [];
+    querySnapshot.forEach((doc) => {
+      items.push({ id: doc.id, title: doc.data().title });
+    });
+    setHazardTypes(items);
+    setLoading(false);
+  }, []);
 
   const handleChoose = (id) => {
     setChosenId(id);
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>סוג המפגע</Text>
       <FlatList
         style={styles.list}
-        data={types}
+        data={hazardTypes}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={[styles.buttonContainer, item.id == chosenId ? styles.chosenButtonContainer : ""]}
@@ -48,6 +65,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Assistant-Bold",
     fontSize: 18,
+    marginTop: 20,
   },
   buttonContainer: {
     backgroundColor: "white",
