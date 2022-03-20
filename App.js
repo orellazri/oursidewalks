@@ -11,6 +11,7 @@ import CameraCaptureScreen from "./screens/CameraCaptureScreen";
 import PhotosPreviewScreen from "./screens/PhotosPreviewScreen";
 import ChooseLocationScreen from "./screens/ChooseLocationScreen";
 import ChooseHazardType from "./screens/ChooseHazardType";
+import FillReportScreen from "./screens/FillReportScreen";
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
@@ -40,6 +41,7 @@ export default function App() {
           <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
           <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
           <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
+          <Stack.Screen name="FillReport" component={FillReportScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ReportProvider>

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Assistant-Bold",
-    fontSize: 18,
+    fontSize: 20,
     marginRight: 30,
   },
   closeButton: {

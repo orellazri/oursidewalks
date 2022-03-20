@@ -4,24 +4,37 @@ import { Feather } from "@expo/vector-icons";
 import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
+import ContinueButton from "../components/ContinueButton";
+import { useReport } from "../utils/ReportContext";
 
-export default function ChooseHazardType() {
+export default function ChooseHazardType({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
   const [chosenId, setChosenId] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const { setHazardType } = useReport();
+
   useEffect(async () => {
+    // Get hazard types from Firestore
     const querySnapshot = await getDocs(collection(db, "hazard-types"));
     let items = [];
     querySnapshot.forEach((doc) => {
-      items.push({ id: doc.id, title: doc.data().title });
+      items.push({ id: doc.id, title: doc.data().title, order: doc.data().order });
     });
+
+    // Sort by order
+    items.sort((a, b) => (a.order > b.order ? 1 : b.order > a.order ? -1 : 0));
     setHazardTypes(items);
     setLoading(false);
   }, []);
 
   const handleChoose = (id) => {
     setChosenId(id);
+    setHazardType(hazardTypes.filter((item) => item.id == id)[0]);
+  };
+
+  const handleContinue = () => {
+    navigation.navigate("FillReport");
   };
 
   if (loading) {
@@ -44,10 +57,12 @@ export default function ChooseHazardType() {
             onPress={() => handleChoose(item.id)}
           >
             <Text style={[styles.buttonText, item.id == chosenId ? styles.chosenButtonText : ""]}>{item.title}</Text>
-            {item.id == chosenId && <Feather name="check" size={24} color="white" style={styles.checkIcon} />}
+            {item.id == chosenId && <Feather name="check" size={24} color="white" />}
           </TouchableOpacity>
         )}
       />
+
+      <ContinueButton onPress={handleContinue} />
     </SafeAreaView>
   );
 }
@@ -64,7 +79,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Assistant-Bold",
-    fontSize: 18,
+    fontSize: 20,
     marginTop: 20,
   },
   buttonContainer: {
@@ -91,5 +106,4 @@ const styles = StyleSheet.create({
   chosenButtonText: {
     color: "white",
   },
-  checkIcon: {},
 });
