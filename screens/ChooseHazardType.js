@@ -47,7 +47,10 @@ export default function ChooseHazardType({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Title */}
       <Text style={styles.title}>סוג המפגע</Text>
+
+      {/* Hazard Type List */}
       <FlatList
         style={styles.list}
         data={hazardTypes}
@@ -62,6 +65,7 @@ export default function ChooseHazardType({ navigation }) {
         )}
       />
 
+      {/* Continue Button */}
       <ContinueButton onPress={handleContinue} />
     </SafeAreaView>
   );
