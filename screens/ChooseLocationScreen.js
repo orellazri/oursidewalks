@@ -30,7 +30,6 @@ export default function ChooseLocationScreen({ navigation }) {
   }, []);
 
   const clearLocationText = () => {
-    console.log("Hi there");
     setLocationText("");
   };
 
@@ -38,7 +37,9 @@ export default function ChooseLocationScreen({ navigation }) {
     navigation.goBack();
   };
 
-  const handleContinue = () => {};
+  const handleContinue = () => {
+    navigation.navigate("FillReport");
+  };
 
   if (hasPermission === null) {
     return <View />;

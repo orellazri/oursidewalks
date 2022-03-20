@@ -34,7 +34,7 @@ export default function ChooseHazardType({ navigation }) {
   };
 
   const handleContinue = () => {
-    navigation.navigate("FillReport");
+    navigation.navigate("ChooseLocation");
   };
 
   if (loading) {

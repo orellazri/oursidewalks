@@ -36,11 +36,11 @@ export default function App() {
     <ReportProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
           <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
           <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
+          <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
           <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
           <Stack.Screen name="FillReport" component={FillReportScreen} />
           <Stack.Screen name="ReportSummary" component={ReportSummaryScreen} />

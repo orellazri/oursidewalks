@@ -33,7 +33,7 @@ export default function PhotosPreviewScreen({ navigation }) {
   };
 
   const handleContinue = () => {
-    navigation.navigate("ChooseLocation");
+    navigation.navigate("ChooseHazardType");
   };
 
   return (
