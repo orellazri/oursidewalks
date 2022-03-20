@@ -12,6 +12,7 @@ import PhotosPreviewScreen from "./screens/PhotosPreviewScreen";
 import ChooseLocationScreen from "./screens/ChooseLocationScreen";
 import ChooseHazardType from "./screens/ChooseHazardType";
 import FillReportScreen from "./screens/FillReportScreen";
+import ReportSummaryScreen from "./screens/ReportSummaryScreen";
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
@@ -42,6 +43,7 @@ export default function App() {
           <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
           <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
           <Stack.Screen name="FillReport" component={FillReportScreen} />
+          <Stack.Screen name="ReportSummary" component={ReportSummaryScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ReportProvider>

@@ -3,8 +3,12 @@ import { useReport } from "../utils/ReportContext";
 import { Feather } from "@expo/vector-icons";
 import ContinueButton from "../components/ContinueButton";
 
-export default function FillReportScreen() {
-  const { hazardType } = useReport();
+export default function FillReportScreen({ navigation }) {
+  const { hazardType, freetext, setFreetext } = useReport();
+
+  const handleContinue = () => {
+    navigation.navigate("ReportSummary");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,11 +23,17 @@ export default function FillReportScreen() {
 
       {/* Form */}
       <Text style={styles.formInputLabel}>תיאור המפגע</Text>
-      <TextInput style={styles.formInput} multiline placeholder="טקסט חופשי (אופציונלי)..." />
+      <TextInput
+        style={styles.formInput}
+        multiline
+        placeholder="טקסט חופשי (אופציונלי)..."
+        value={freetext}
+        onChangeText={setFreetext}
+      />
 
       {/* Continue Button */}
       <View style={styles.continueButton}>
-        <ContinueButton />
+        <ContinueButton onPress={handleContinue} />
       </View>
     </SafeAreaView>
   );
