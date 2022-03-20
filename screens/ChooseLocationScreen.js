@@ -116,6 +116,6 @@ const styles = StyleSheet.create({
   continueButton: {
     position: "absolute",
     zIndex: 2,
-    bottom: "5%",
+    bottom: "3%",
   },
 });
