@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   locationInput: {
     paddingLeft: 8,
+    fontSize: 16,
   },
   closeIcon: {
     position: "absolute",
