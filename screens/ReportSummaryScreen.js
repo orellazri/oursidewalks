@@ -1,11 +1,24 @@
-import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions } from "react-native";
+import { useState, useEffect } from "react";
+import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions, View } from "react-native";
+import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 
 import { useReport } from "../utils/ReportContext";
+import SummaryRow from "../components/SummaryRow";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { photos, hazardType, freetext } = useReport();
 
+  const [truncatedFreetext, setTruncatedFreetext] = useState("");
+
   const window = useWindowDimensions();
+
+  useEffect(() => {
+    if (freetext.length > 30) {
+      setTruncatedFreetext(freetext.substring(0, 30) + "...");
+    } else {
+      setTruncatedFreetext(freetext);
+    }
+  }, [freetext]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -21,6 +34,13 @@ export default function ReportSummaryScreen({ navigation }) {
         style={styles.list}
         contentContainerStyle={{ alignItems: "center" }}
       />
+
+      {/* Summary */}
+      <View style={styles.summaryList}>
+        <SummaryRow text="מיקום זמני" icon={<EvilIcons name="location" size={36} color="#BDBDBD" />} />
+        <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color="#BDBDBD" />} />
+        <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color="#BDBDBD" />} />
+      </View>
     </SafeAreaView>
   );
 }
@@ -43,4 +63,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 15,
   }),
+  summaryList: {
+    width: "80%",
+  },
 });

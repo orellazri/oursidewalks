@@ -34,6 +34,7 @@ export default function ChooseHazardType({ navigation }) {
   };
 
   const handleContinue = () => {
+    if (!chosenId) return;
     navigation.navigate("ChooseLocation");
   };
 
