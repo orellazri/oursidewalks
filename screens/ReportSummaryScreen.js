@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Assistant-Bold",
     fontSize: 20,
-    marginTop: 20,
+    marginTop: "10%",
   },
   photo: (window) => ({
     aspectRatio: 1,
