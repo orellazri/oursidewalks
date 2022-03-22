@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     textAlign: "right",
     fontSize: 16,
+    textAlignVertical: "top",
   },
   continueButton: {
     marginTop: "auto",
