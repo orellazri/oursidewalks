@@ -1,10 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function ContinueButton({ onPress }) {
+export default function ContinueButton({ text, onPress }) {
+  const buttonText = text ? text : "המשך";
+
   return (
     <TouchableOpacity style={styles.continueButton} onPress={onPress}>
-      <Text style={styles.continueButtonText}>המשך</Text>
+      <Text style={styles.continueButtonText}>{buttonText}</Text>
       <AntDesign name="arrowleft" size={20} color="black" />
     </TouchableOpacity>
   );

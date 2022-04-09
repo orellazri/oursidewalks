@@ -4,6 +4,7 @@ import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 
 import { useReport } from "../utils/ReportContext";
 import SummaryRow from "../components/SummaryRow";
+import ContinueButton from "../components/ContinueButton";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { photos, hazardType, freetext } = useReport();
@@ -19,6 +20,10 @@ export default function ReportSummaryScreen({ navigation }) {
       setTruncatedFreetext(freetext);
     }
   }, [freetext]);
+
+  const handleSend = () => {
+    navigation.navigate("ReportConfirmation");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,6 +45,11 @@ export default function ReportSummaryScreen({ navigation }) {
         <SummaryRow text="מיקום זמני" icon={<EvilIcons name="location" size={36} color="#BDBDBD" />} />
         <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color="#BDBDBD" />} />
         <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color="#BDBDBD" />} />
+      </View>
+
+      {/* Buttons */}
+      <View>
+        <ContinueButton text="שליחה" onPress={handleSend} />
       </View>
     </SafeAreaView>
   );
