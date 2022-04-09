@@ -1,7 +1,9 @@
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList, useWindowDimensions } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { ref, uploadBytes } from "firebase/storage";
 
+import { storage } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
 
@@ -33,7 +35,13 @@ export default function PhotosPreviewScreen({ navigation }) {
   };
 
   const handleContinue = () => {
-    navigation.navigate("ChooseHazardType");
+    // navigation.navigate("ChooseHazardType");
+    console.log(photos);
+    // const storageRef = ref(storage, "mountains.jpg");
+    // const bytes = new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21]);
+    // uploadBytes(storageRef, bytes).then((snapshot) => {
+    //   console.log("Uploaded an array");
+    // });
   };
 
   return (
