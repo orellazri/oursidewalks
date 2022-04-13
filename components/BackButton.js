@@ -1,9 +1,13 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function BackButton({ onPress }) {
+export default function BackButton({ navigation }) {
+  const handlePress = () => {
+    navigation.goBack();
+  };
+
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={styles.button} onPress={handlePress}>
       <Ionicons name="arrow-forward-outline" size={24} color="black" />
     </TouchableOpacity>
   );

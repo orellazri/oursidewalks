@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import ContinueButton from "../components/ContinueButton";
 import { useReport } from "../utils/ReportContext";
+import BackButton from "../components/BackButton";
 
 export default function ChooseHazardType({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
@@ -48,6 +49,9 @@ export default function ChooseHazardType({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Back Button */}
+      <BackButton navigation={navigation} />
+
       {/* Title */}
       <Text style={styles.title}>סוג המפגע</Text>
 

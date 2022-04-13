@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
-import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions, View } from "react-native";
+import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions, View, Modal } from "react-native";
 import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
+import { ref, uploadBytes } from "firebase/storage";
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
+import uuid from "react-native-uuid";
 
+import { storage } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
 import SummaryRow from "../components/SummaryRow";
 import ContinueButton from "../components/ContinueButton";
+import BackButton from "../components/BackButton";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { photos, hazardType, freetext } = useReport();
@@ -21,12 +26,40 @@ export default function ReportSummaryScreen({ navigation }) {
     }
   }, [freetext]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
+    // Upload photos
+    for (let photo of photos) {
+      // Resize and compress image
+      const manipResult = await manipulateAsync(photo.uri, [{ resize: { height: 800 } }], {
+        compress: 0.6,
+        format: SaveFormat.JPEG,
+      });
+
+      // Fetch bytes
+      const img = await fetch(manipResult.uri);
+      const bytes = await img.blob();
+
+      // Generate unique name
+      const name = uuid.v4();
+
+      // Upload photo
+      const storageRef = ref(storage, name);
+      await uploadBytes(storageRef, bytes);
+
+      // TODO: Add to db
+    }
+
     navigation.navigate("ReportConfirmation");
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Modal */}
+      <Modal animationType="slide" transparent={true} />
+
+      {/* Back Button */}
+      <BackButton />
+
       {/* Title */}
       <Text style={styles.title}>סיכום הדיווח שלך</Text>
 

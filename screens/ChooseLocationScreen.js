@@ -33,10 +33,6 @@ export default function ChooseLocationScreen({ navigation }) {
     setLocationText("");
   };
 
-  const handleBack = () => {
-    navigation.goBack();
-  };
-
   const handleContinue = () => {
     navigation.navigate("FillReport");
   };
@@ -55,7 +51,7 @@ export default function ChooseLocationScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Back Button */}
-      <BackButton onPress={handleBack} />
+      <BackButton navigation={navigation} />
 
       {/* Location input */}
       <View style={styles.inputContainer}>

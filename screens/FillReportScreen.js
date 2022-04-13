@@ -2,6 +2,7 @@ import { SafeAreaView, Text, StyleSheet, View, TextInput } from "react-native";
 import { useReport } from "../utils/ReportContext";
 import { Feather } from "@expo/vector-icons";
 import ContinueButton from "../components/ContinueButton";
+import BackButton from "../components/BackButton";
 
 export default function FillReportScreen({ navigation }) {
   const { hazardType, freetext, setFreetext } = useReport();
@@ -12,6 +13,9 @@ export default function FillReportScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Back Button */}
+      <BackButton navigation={navigation} />
+
       {/* Title */}
       <Text style={styles.title}>תיאור המפגע</Text>
 
