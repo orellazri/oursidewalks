@@ -1,21 +1,12 @@
 import { useState, useEffect } from "react";
-import {
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  useWindowDimensions,
-  View,
-  Modal,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions, View, ActivityIndicator } from "react-native";
 import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { ref, uploadBytes } from "firebase/storage";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import uuid from "react-native-uuid";
 
-import { storage } from "../utils/firebase";
+import { storage, db } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
 import SummaryRow from "../components/SummaryRow";
 import ContinueButton from "../components/ContinueButton";
@@ -25,7 +16,7 @@ export default function ReportSummaryScreen({ navigation }) {
   const { photos, hazardType, freetext } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const window = useWindowDimensions();
 
@@ -40,7 +31,14 @@ export default function ReportSummaryScreen({ navigation }) {
   }, [freetext]);
 
   const handleSend = async () => {
-    setIsLoading(true);
+    setLoading(true);
+
+    let photoNames = [];
+
+    const date = new Date();
+    const today = date.toLocaleDateString("en-IL").replaceAll("/", "-");
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
     // Upload photos
     for (let photo of photos) {
@@ -54,20 +52,29 @@ export default function ReportSummaryScreen({ navigation }) {
       const img = await fetch(manipResult.uri);
       const bytes = await img.blob();
 
-      // Generate unique name
-      const name = uuid.v4();
+      // Generate unique name, and append todays's date, hour, minute
+      const name = uuid.v4() + "-" + today + "-" + hours + "-" + minutes;
 
       // Upload photo
       const storageRef = ref(storage, name);
       await uploadBytes(storageRef, bytes);
 
-      // TODO: Add to db
+      photoNames.push(name);
     }
 
+    // Add report to database
+    await addDoc(collection(db, "reports"), {
+      photos: photoNames,
+      type: hazardType.id,
+      freetext,
+      created_at: Timestamp.now(),
+    });
+
+    // Navigate to report confirmation screen
     navigation.navigate("ReportConfirmation");
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
@@ -77,9 +84,6 @@ export default function ReportSummaryScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Modal */}
-      <Modal animationType="slide" transparent={true} />
-
       {/* Back Button */}
       <BackButton />
 
