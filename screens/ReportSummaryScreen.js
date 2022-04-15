@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions, View, Modal } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  useWindowDimensions,
+  View,
+  Modal,
+  ActivityIndicator,
+} from "react-native";
 import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { ref, uploadBytes } from "firebase/storage";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
@@ -15,11 +25,14 @@ export default function ReportSummaryScreen({ navigation }) {
   const { photos, hazardType, freetext } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const window = useWindowDimensions();
 
   useEffect(() => {
-    if (freetext.length > 30) {
+    if (freetext.length == 0) {
+      setTruncatedFreetext("לא הוזן טקסט חופשי");
+    } else if (freetext.length > 30) {
       setTruncatedFreetext(freetext.substring(0, 30) + "...");
     } else {
       setTruncatedFreetext(freetext);
@@ -27,6 +40,8 @@ export default function ReportSummaryScreen({ navigation }) {
   }, [freetext]);
 
   const handleSend = async () => {
+    setIsLoading(true);
+
     // Upload photos
     for (let photo of photos) {
       // Resize and compress image
@@ -51,6 +66,14 @@ export default function ReportSummaryScreen({ navigation }) {
 
     navigation.navigate("ReportConfirmation");
   };
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>

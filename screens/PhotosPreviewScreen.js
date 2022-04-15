@@ -6,13 +6,15 @@ import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
 
 export default function PhotosPreviewScreen({ navigation }) {
-  const { photos, setPhotos } = useReport();
+  const { photos, setPhotos, setHazardType, setFreetext } = useReport();
 
   const window = useWindowDimensions();
 
   const handleClose = () => {
     navigation.navigate("PromptCapture");
     setPhotos([]);
+    setHazardType("");
+    setFreetext("");
   };
 
   const openCamera = () => {
