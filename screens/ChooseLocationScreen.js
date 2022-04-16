@@ -7,18 +7,18 @@ import { AntDesign, EvilIcons } from "@expo/vector-icons";
 import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
+import { Marker } from "react-native-maps";
 
 export default function ChooseLocationScreen({ navigation }) {
   const { location, setLocation } = useReport();
   const [hasPermission, setHasPermission] = useState(null);
   const [locationText, setLocationText] = useState("");
-
-  const initialLocation = {
+  const [initialLocation, setInitialLocation] = useState({
     longitude: 34.777787,
     latitude: 31.224496,
     longitudeDelta: 5,
     latitudeDelta: 5,
-  };
+  });
 
   useEffect(() => {
     (async () => {
@@ -27,6 +27,7 @@ export default function ChooseLocationScreen({ navigation }) {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation({ ...location["coords"], latitudeDelta: 0.004, longitudeDelta: 0.004 });
+      setInitialLocation({ ...location["coords"], latitudeDelta: 0.004, longitudeDelta: 0.004 });
     })();
   }, []);
 
@@ -69,7 +70,17 @@ export default function ChooseLocationScreen({ navigation }) {
       </View>
 
       {/* Map */}
-      <MapView style={styles.map} initialRegion={initialLocation} region={location} showsUserLocation={true}></MapView>
+      <MapView style={styles.map} initialRegion={initialLocation} region={initialLocation}>
+        {location && (
+          <Marker
+            coordinate={location}
+            draggable
+            onDragEnd={(e) => {
+              setLocation(e.nativeEvent.coordinate);
+            }}
+          />
+        )}
+      </MapView>
     </View>
   );
 }
