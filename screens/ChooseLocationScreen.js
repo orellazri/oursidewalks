@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
 
+import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 
 export default function ChooseLocationScreen({ navigation }) {
-  const [location, setLocation] = useState(null);
+  const { location, setLocation } = useReport();
   const [hasPermission, setHasPermission] = useState(null);
   const [locationText, setLocationText] = useState("");
 

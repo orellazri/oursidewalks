@@ -13,7 +13,7 @@ import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 
 export default function ReportSummaryScreen({ navigation }) {
-  const { photos, hazardType, freetext } = useReport();
+  const { photos, hazardType, freetext, location } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,12 +35,6 @@ export default function ReportSummaryScreen({ navigation }) {
 
     let photoNames = [];
 
-    // Get the current date and time to use in the name of the photos
-    const date = new Date();
-    const today = date.toLocaleDateString("en-IL").replaceAll("/", "-");
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
     // Upload photos
     for (let photo of photos) {
       // Resize and compress image
@@ -53,8 +47,8 @@ export default function ReportSummaryScreen({ navigation }) {
       const img = await fetch(manipResult.uri);
       const bytes = await img.blob();
 
-      // Generate unique name with UUID v4 and todays's date and time
-      const name = today + "-" + hours + "-" + minutes + "_" + uuid.v4();
+      // Generate unique name using UUID v4
+      const name = uuid.v4();
 
       // Upload photo
       const storageRef = ref(storage, name);
@@ -68,6 +62,7 @@ export default function ReportSummaryScreen({ navigation }) {
       photos: photoNames,
       type: hazardType.id,
       freetext,
+      location: { longitude: location.longitude, latitude: location.latitude },
       created_at: Timestamp.now(),
     });
 
@@ -79,6 +74,7 @@ export default function ReportSummaryScreen({ navigation }) {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
+        <Text style={styles.title}>שולח דיווח...</Text>
       </SafeAreaView>
     );
   }
