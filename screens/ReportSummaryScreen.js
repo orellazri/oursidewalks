@@ -35,6 +35,7 @@ export default function ReportSummaryScreen({ navigation }) {
 
     let photoNames = [];
 
+    // Get the current date and time to use in the name of the photos
     const date = new Date();
     const today = date.toLocaleDateString("en-IL").replaceAll("/", "-");
     const hours = date.getHours();
@@ -43,7 +44,7 @@ export default function ReportSummaryScreen({ navigation }) {
     // Upload photos
     for (let photo of photos) {
       // Resize and compress image
-      const manipResult = await manipulateAsync(photo.uri, [{ resize: { height: 800 } }], {
+      const manipResult = await manipulateAsync(photo.uri, [{ resize: { height: 1000 } }], {
         compress: 0.6,
         format: SaveFormat.JPEG,
       });
@@ -52,7 +53,7 @@ export default function ReportSummaryScreen({ navigation }) {
       const img = await fetch(manipResult.uri);
       const bytes = await img.blob();
 
-      // Generate unique name, and append todays's date, hour, minute
+      // Generate unique name with UUID v4 and todays's date and time
       const name = today + "-" + hours + "-" + minutes + "_" + uuid.v4();
 
       // Upload photo
@@ -85,7 +86,7 @@ export default function ReportSummaryScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       {/* Back Button */}
-      <BackButton />
+      <BackButton navigation={navigation} />
 
       {/* Title */}
       <Text style={styles.title}>סיכום הדיווח שלך</Text>

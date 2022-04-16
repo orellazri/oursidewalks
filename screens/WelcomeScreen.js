@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
@@ -7,8 +8,12 @@ import Logo from "../components/Logo.js";
 export default function WelcomeScreen({ navigation }) {
   const window = useWindowDimensions();
 
+  useEffect(() => {
+    console.log("Welcome rendering");
+  }, []);
+
   const handlePressButton = () => {
-    navigation.navigate("PromptCapture");
+    navigation.navigate("ChooseHazardType");
   };
 
   return (

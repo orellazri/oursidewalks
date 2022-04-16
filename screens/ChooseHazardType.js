@@ -4,9 +4,8 @@ import { Feather } from "@expo/vector-icons";
 import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
-import ContinueButton from "../components/ContinueButton";
 import { useReport } from "../utils/ReportContext";
-import BackButton from "../components/BackButton";
+import ContinueButton from "../components/ContinueButton";
 
 export default function ChooseHazardType({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
@@ -36,7 +35,7 @@ export default function ChooseHazardType({ navigation }) {
 
   const handleContinue = () => {
     if (!chosenId) return;
-    navigation.navigate("ChooseLocation");
+    navigation.navigate("PromptCapture");
   };
 
   if (loading) {
@@ -49,9 +48,6 @@ export default function ChooseHazardType({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Back Button */}
-      <BackButton navigation={navigation} />
-
       {/* Title */}
       <Text style={styles.title}>סוג המפגע</Text>
 

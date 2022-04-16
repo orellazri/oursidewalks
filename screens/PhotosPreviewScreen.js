@@ -13,7 +13,6 @@ export default function PhotosPreviewScreen({ navigation }) {
   const handleClose = () => {
     navigation.navigate("PromptCapture");
     setPhotos([]);
-    setHazardType("");
     setFreetext("");
   };
 
@@ -35,7 +34,7 @@ export default function PhotosPreviewScreen({ navigation }) {
   };
 
   const handleContinue = () => {
-    navigation.navigate("ChooseHazardType");
+    navigation.navigate("ChooseLocation");
   };
 
   return (
