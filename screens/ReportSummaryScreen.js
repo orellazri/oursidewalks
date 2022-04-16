@@ -53,7 +53,7 @@ export default function ReportSummaryScreen({ navigation }) {
       const bytes = await img.blob();
 
       // Generate unique name, and append todays's date, hour, minute
-      const name = uuid.v4() + "-" + today + "-" + hours + "-" + minutes;
+      const name = today + "-" + hours + "-" + minutes + "_" + uuid.v4();
 
       // Upload photo
       const storageRef = ref(storage, name);
