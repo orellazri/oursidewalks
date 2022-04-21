@@ -1,4 +1,4 @@
-import { I18nManager } from "react-native";
+import { I18nManager, LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
@@ -14,6 +14,8 @@ import ChooseHazardType from "./screens/ChooseHazardType";
 import FillReportScreen from "./screens/FillReportScreen";
 import ReportSummaryScreen from "./screens/ReportSummaryScreen";
 import ReportConfirmationScreen from "./screens/ReportConfirmationScreen";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
