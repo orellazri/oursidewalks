@@ -60,10 +60,11 @@ export default function ReportSummaryScreen({ navigation }) {
     // Add report to database
     await addDoc(collection(db, "reports"), {
       photos: photoNames,
-      type: hazardType.id,
+      hazard_type: hazardType.id,
       freetext,
       location: new GeoPoint(location.latitude, location.longitude),
       created_at: Timestamp.now(),
+      can_share_user_info: true,
     });
 
     // Navigate to report confirmation screen
