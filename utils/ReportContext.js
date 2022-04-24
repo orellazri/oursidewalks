@@ -7,8 +7,20 @@ export const ReportProvider = ({ children }) => {
   const [hazardType, setHazardType] = useState("");
   const [freetext, setFreetext] = useState("");
   const [location, setLocation] = useState(null);
+  const [consent, setConsent] = useState(false);
 
-  const value = { photos, setPhotos, hazardType, setHazardType, freetext, setFreetext, location, setLocation };
+  const value = {
+    photos,
+    setPhotos,
+    hazardType,
+    setHazardType,
+    freetext,
+    setFreetext,
+    location,
+    setLocation,
+    consent,
+    setConsent,
+  };
 
   return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
 };

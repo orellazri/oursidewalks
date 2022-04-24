@@ -4,6 +4,7 @@ import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { ref, uploadBytes } from "firebase/storage";
 import { addDoc, collection, Timestamp, GeoPoint } from "firebase/firestore";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import uuid from "react-native-uuid";
 
 import { storage, db } from "../utils/firebase";
@@ -13,7 +14,7 @@ import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 
 export default function ReportSummaryScreen({ navigation }) {
-  const { photos, hazardType, freetext, location } = useReport();
+  const { photos, hazardType, freetext, location, consent, setConsent } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
   const [loading, setLoading] = useState(false);
@@ -64,7 +65,7 @@ export default function ReportSummaryScreen({ navigation }) {
       freetext,
       location: new GeoPoint(location.latitude, location.longitude),
       created_at: Timestamp.now(),
-      can_share_user_info: true,
+      consent,
     });
 
     // Navigate to report confirmation screen
@@ -103,6 +104,19 @@ export default function ReportSummaryScreen({ navigation }) {
         <SummaryRow text="מיקום זמני" icon={<EvilIcons name="location" size={36} color="#BDBDBD" />} />
         <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color="#BDBDBD" />} />
         <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color="#BDBDBD" />} />
+
+        {/* Checkbox */}
+        <BouncyCheckbox
+          text="אני מסכים לשתף את הפרטים שלי"
+          style={styles.checkbox}
+          textStyle={{
+            textDecorationLine: "none",
+            color: "black",
+          }}
+          onPress={(isChecked) => {
+            setConsent(isChecked);
+          }}
+        />
       </View>
 
       {/* Buttons */}
@@ -133,5 +147,9 @@ const styles = StyleSheet.create({
   }),
   summaryList: {
     width: "80%",
+    marginBottom: "10%",
+  },
+  checkbox: {
+    marginTop: 30,
   },
 });
