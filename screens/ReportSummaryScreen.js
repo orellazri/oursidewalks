@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { SafeAreaView, Text, StyleSheet, FlatList, Image, useWindowDimensions, View, ActivityIndicator } from "react-native";
 import { EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { ref, uploadBytes } from "firebase/storage";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, Timestamp, GeoPoint } from "firebase/firestore";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import uuid from "react-native-uuid";
 
@@ -62,7 +62,7 @@ export default function ReportSummaryScreen({ navigation }) {
       photos: photoNames,
       type: hazardType.id,
       freetext,
-      location: { longitude: location.longitude, latitude: location.latitude },
+      location: new GeoPoint(location.latitude, location.longitude),
       created_at: Timestamp.now(),
     });
 
