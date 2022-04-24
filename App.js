@@ -1,6 +1,7 @@
 import { I18nManager, LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RootSiblingParent } from "react-native-root-siblings";
 import { useFonts } from "expo-font";
 import { setCustomText } from "react-native-global-props";
 
@@ -37,19 +38,21 @@ export default function App() {
 
   return (
     <ReportProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
-          <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
-          <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
-          <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
-          <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
-          <Stack.Screen name="FillReport" component={FillReportScreen} />
-          <Stack.Screen name="ReportSummary" component={ReportSummaryScreen} />
-          <Stack.Screen name="ReportConfirmation" component={ReportConfirmationScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <RootSiblingParent>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
+            <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
+            <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
+            <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
+            <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
+            <Stack.Screen name="FillReport" component={FillReportScreen} />
+            <Stack.Screen name="ReportSummary" component={ReportSummaryScreen} />
+            <Stack.Screen name="ReportConfirmation" component={ReportConfirmationScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </RootSiblingParent>
     </ReportProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList, useWindowDimensions } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import Toast from "react-native-root-toast";
 
 import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
@@ -17,10 +18,23 @@ export default function PhotosPreviewScreen({ navigation }) {
   };
 
   const openCamera = () => {
+    if (photos.length == 3) {
+      let toast = Toast.show("אין אפשרות להוסיף יותר מ-3 תמונות", {
+        duration: Toast.durations.LONG,
+      });
+      return;
+    }
     navigation.push("CameraCapture");
   };
 
   const openGallery = async () => {
+    if (photos.length == 3) {
+      let toast = Toast.show("אין אפשרות להוסיף יותר מ-3 תמונות", {
+        duration: Toast.durations.LONG,
+      });
+      return;
+    }
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
