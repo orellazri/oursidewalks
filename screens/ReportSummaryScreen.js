@@ -32,6 +32,13 @@ export default function ReportSummaryScreen({ navigation }) {
   }, [freetext]);
 
   const handleSend = async () => {
+    // If for some reason there are more than 3 photos,
+    // don't upload. We should not get to this point since this is
+    // enforced in PhotosPreviewScreen
+    if (photos.length > 3) {
+      return;
+    }
+
     setLoading(true);
 
     let photoNames = [];
