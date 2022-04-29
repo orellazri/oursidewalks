@@ -15,6 +15,7 @@ import ChooseHazardType from "./screens/ChooseHazardType";
 import FillReportScreen from "./screens/FillReportScreen";
 import ReportSummaryScreen from "./screens/ReportSummaryScreen";
 import ReportConfirmationScreen from "./screens/ReportConfirmationScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -41,6 +42,7 @@ export default function App() {
       <RootSiblingParent>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
             <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
