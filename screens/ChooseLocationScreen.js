@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, Platform } from "react-native";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
@@ -14,6 +14,7 @@ export default function ChooseLocationScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [locationText, setLocationText] = useState("");
   const [initialLocation, setInitialLocation] = useState({
+    // Initial location of Israel
     longitude: 34.777787,
     latitude: 31.224496,
     longitudeDelta: 5,
@@ -25,7 +26,10 @@ export default function ChooseLocationScreen({ navigation }) {
       let { status } = await Location.requestForegroundPermissionsAsync();
       setHasPermission(status === "granted");
 
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({
+        // Setting accuracy to low for loading times
+        accuracy: Platform.OS === "android" ? Location.Accuracy.Low : Location.Accuracy.Lowest,
+      });
       setLocation({ ...location["coords"], latitudeDelta: 0.004, longitudeDelta: 0.004 });
       setInitialLocation({ ...location["coords"], latitudeDelta: 0.004, longitudeDelta: 0.004 });
     })();
