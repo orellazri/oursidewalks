@@ -15,8 +15,12 @@ export default function LoginScreen({ navigation }) {
 
   const handleSubmit = async () => {
     try {
+      // Log in
       const credentials = await signInWithEmailAndPassword(auth, email, password);
+
+      // Set user in persistent storage
       await setItemAsync("user", credentials["user"]["uid"]);
+
       navigation.navigate("Welcome");
     } catch (e) {
       let errorMessage = "התתחברות נכשלה";
