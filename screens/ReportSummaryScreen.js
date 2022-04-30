@@ -86,7 +86,7 @@ export default function ReportSummaryScreen({ navigation }) {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
-        <Text style={styles.title}>שולח דיווח...</Text>
+        <Text style={styles.loadingText}>שולח דיווח...</Text>
       </SafeAreaView>
     );
   }
@@ -157,5 +157,9 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     marginTop: 30,
+  },
+  loadingText: {
+    paddingTop: 20,
+    fontSize: 16,
   },
 });
