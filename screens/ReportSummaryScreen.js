@@ -12,6 +12,7 @@ import { useReport } from "../utils/ReportContext";
 import SummaryRow from "../components/SummaryRow";
 import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
+import Title from "../components/Title";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { photos, hazardType, freetext, location, consent, setConsent } = useReport();
@@ -94,7 +95,7 @@ export default function ReportSummaryScreen({ navigation }) {
       <BackButton navigation={navigation} />
 
       {/* Title */}
-      <Text style={styles.title}>סיכום הדיווח שלך</Text>
+      <Title text="סיכום הדיווח שלך" />
 
       {/* Photos */}
       <FlatList
@@ -139,11 +140,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#F4F4F4",
-  },
-  title: {
-    fontFamily: "Assistant-Bold",
-    fontSize: 20,
-    marginTop: "10%",
   },
   photo: (window) => ({
     aspectRatio: 1,

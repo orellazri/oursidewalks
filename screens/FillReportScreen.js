@@ -3,6 +3,7 @@ import { useReport } from "../utils/ReportContext";
 import { Feather } from "@expo/vector-icons";
 import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
+import Title from "../components/Title";
 
 export default function FillReportScreen({ navigation }) {
   const { hazardType, freetext, setFreetext } = useReport();
@@ -17,7 +18,7 @@ export default function FillReportScreen({ navigation }) {
       <BackButton navigation={navigation} />
 
       {/* Title */}
-      <Text style={styles.title}>תיאור המפגע</Text>
+      <Title text="תיאור המפגע" />
 
       {/* Hazard Type */}
       <View style={styles.buttonContainer}>
@@ -48,11 +49,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#F4F4F4",
-  },
-  title: {
-    fontFamily: "Assistant-Bold",
-    fontSize: 20,
-    marginTop: "10%",
   },
   buttonContainer: {
     backgroundColor: "white",

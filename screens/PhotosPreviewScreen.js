@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Assistant-Bold",
     fontSize: 20,
-    marginRight: 30,
+    marginRight: "15%",
   },
   closeButton: {
     marginLeft: 30,

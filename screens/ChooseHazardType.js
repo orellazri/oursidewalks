@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
+import Title from "../components/Title";
 
 export default function ChooseHazardType({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
@@ -49,7 +50,7 @@ export default function ChooseHazardType({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       {/* Title */}
-      <Text style={styles.title}>סוג המפגע</Text>
+      <Title text="סוג המפגע" />
 
       {/* Hazard Type List */}
       <FlatList
@@ -81,11 +82,6 @@ const styles = StyleSheet.create({
   list: {
     width: "70%",
     marginTop: 20,
-  },
-  title: {
-    fontFamily: "Assistant-Bold",
-    fontSize: 20,
-    marginTop: "10%",
   },
   buttonContainer: {
     backgroundColor: "white",

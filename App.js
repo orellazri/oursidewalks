@@ -17,7 +17,7 @@ import ReportSummaryScreen from "./screens/ReportSummaryScreen";
 import ReportConfirmationScreen from "./screens/ReportConfirmationScreen";
 import LoginScreen from "./screens/LoginScreen";
 
-LogBox.ignoreLogs(["Setting a timer"]);
+LogBox.ignoreLogs(["Setting a timer", "AsyncStorage has been extracted"]);
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
