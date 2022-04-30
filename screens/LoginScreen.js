@@ -9,7 +9,7 @@ import ContinueButton from "../components/ContinueButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("ryiseld@gmail.com");
   const [password, setPassword] = useState("password");
 
@@ -17,7 +17,7 @@ export default function LoginScreen() {
     try {
       const credentials = await signInWithEmailAndPassword(auth, email, password);
       await setItemAsync("user", credentials["user"]["uid"]);
-      console.log("Done!");
+      navigation.navigate("Welcome");
     } catch (e) {
       let errorMessage = "התתחברות נכשלה";
       if (e.code == "auth/wrong-password") {

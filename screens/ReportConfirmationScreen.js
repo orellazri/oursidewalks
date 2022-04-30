@@ -1,15 +1,8 @@
-import { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import Logo from "../components/Logo";
 
 export default function ReportConfirmationScreen({ navigation }) {
-  useEffect(() => {
-    navigation.addListener("beforeRemove", (e) => {
-      e.preventDefault();
-    });
-  }, [navigation]);
-
   return (
     <View style={styles.container}>
       <View style={styles.bottom}></View>

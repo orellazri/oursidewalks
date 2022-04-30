@@ -27,10 +27,8 @@ export const ReportProvider = ({ children }) => {
   useEffect(async () => {
     const result = await getItemAsync("user");
     if (result) {
-      console.log("User is stored");
+      // User is stored. Validate uid
       console.log(result);
-    } else {
-      console.log("User is *NOT* stored");
     }
   }, []);
 

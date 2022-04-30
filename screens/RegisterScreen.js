@@ -8,7 +8,7 @@ import ContinueButton from "../components/ContinueButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
 
-export default function LoginScreen() {
+export default function RegisterScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("ryiseld@gmail.com");
   const [password, setPassword] = useState("password");
@@ -16,7 +16,7 @@ export default function LoginScreen() {
   const handleSubmit = async () => {
     try {
       const credentials = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(credentials.user);
+      navigation.navigate("Welcome");
     } catch (e) {
       let errorMessage = "ההרשמה נכשלה";
       if (e.code == "auth/email-already-in-use") {

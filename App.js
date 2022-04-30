@@ -45,7 +45,13 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen
+              name="Welcome"
+              component={WelcomeScreen}
+              options={{
+                gestureEnabled: false,
+              }}
+            />
             <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
             <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
             <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
@@ -53,7 +59,13 @@ export default function App() {
             <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
             <Stack.Screen name="FillReport" component={FillReportScreen} />
             <Stack.Screen name="ReportSummary" component={ReportSummaryScreen} />
-            <Stack.Screen name="ReportConfirmation" component={ReportConfirmationScreen} />
+            <Stack.Screen
+              name="ReportConfirmation"
+              component={ReportConfirmationScreen}
+              options={{
+                gestureEnabled: false,
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </RootSiblingParent>
