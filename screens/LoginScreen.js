@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { View, SafeAreaView, StyleSheet } from "react-native";
 import Toast from "react-native-root-toast";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { setItemAsync } from "expo-secure-store";
 
 import { auth } from "../utils/firebase";
 import ContinueButton from "../components/ContinueButton";
@@ -9,18 +10,18 @@ import TextInput from "../components/TextInput";
 import Title from "../components/Title";
 
 export default function LoginScreen() {
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("ryiseld@gmail.com");
   const [password, setPassword] = useState("password");
 
   const handleSubmit = async () => {
     try {
-      const credentials = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(credentials.user);
+      const credentials = await signInWithEmailAndPassword(auth, email, password);
+      await setItemAsync("user", credentials["user"]["uid"]);
+      console.log("Done!");
     } catch (e) {
-      let errorMessage = "ההרשמה נכשלה";
-      if (e.code == "auth/email-already-in-use") {
-        errorMessage = "כתובת האימייל שהזנת כבר נמצאת בשימוש";
+      let errorMessage = "התתחברות נכשלה";
+      if (e.code == "auth/wrong-password") {
+        errorMessage = "ההתחברות נכשלה. אחד מהפרטים שהזנת לא נכונים";
       }
       Toast.show(errorMessage, {
         duration: Toast.durations.LONG,
@@ -32,11 +33,10 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Title */}
-      <Title text="הרשמה" />
+      <Title text="התחברות" />
 
       {/* Form */}
       <View style={styles.form}>
-        <TextInput label="שם מלא" value={fullName} onChangeText={setFullName} />
         <TextInput label="כתובת אימייל" value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" />
         <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
       </View>

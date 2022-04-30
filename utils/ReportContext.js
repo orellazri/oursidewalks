@@ -1,4 +1,5 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { getItemAsync } from "expo-secure-store";
 
 const ReportContext = createContext(null);
 
@@ -21,6 +22,17 @@ export const ReportProvider = ({ children }) => {
     consent,
     setConsent,
   };
+
+  // Retrieve user from persistent storage on start
+  useEffect(async () => {
+    const result = await getItemAsync("user");
+    if (result) {
+      console.log("User is stored");
+      console.log(result);
+    } else {
+      console.log("User is *NOT* stored");
+    }
+  }, []);
 
   return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
 };

@@ -21,6 +21,7 @@ export default function PhotosPreviewScreen({ navigation }) {
     if (photos.length == 3) {
       Toast.show("אין אפשרות להוסיף יותר מ-3 תמונות", {
         duration: Toast.durations.LONG,
+        shadow: false,
       });
       return;
     }
