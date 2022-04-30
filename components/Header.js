@@ -1,9 +1,10 @@
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default function Header() {
+export default function Header({ navigation }) {
   const openMenu = () => {
-    console.log("Open menu");
+    // TODO: add proper menu
+    navigation.navigate("Login");
   };
 
   return (

@@ -18,7 +18,7 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.triangle(window)}></View>
 
       {/* Header */}
-      <Header />
+      <Header navigation={navigation} />
 
       {/* Title */}
       <View style={styles.titleContainer}>
