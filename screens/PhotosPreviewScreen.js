@@ -19,7 +19,7 @@ export default function PhotosPreviewScreen({ navigation }) {
 
   const openCamera = () => {
     if (photos.length == 3) {
-      let toast = Toast.show("אין אפשרות להוסיף יותר מ-3 תמונות", {
+      Toast.show("אין אפשרות להוסיף יותר מ-3 תמונות", {
         duration: Toast.durations.LONG,
       });
       return;
