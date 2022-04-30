@@ -11,9 +11,10 @@ import TextInput from "../components/TextInput";
 import Title from "../components/Title";
 
 export default function RegisterScreen({ navigation }) {
-  const [fullName, setFullName] = useState("אוראל לזרי");
-  const [email, setEmail] = useState("ryiseld@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
     try {
@@ -24,6 +25,7 @@ export default function RegisterScreen({ navigation }) {
       await setDoc(doc(db, "users", credentials["user"]["uid"]), {
         email: credentials["user"]["email"],
         full_name: fullName,
+        phone,
         created_at: Timestamp.now(),
       });
 
@@ -52,6 +54,7 @@ export default function RegisterScreen({ navigation }) {
       {/* Form */}
       <View style={styles.form}>
         <TextInput label="שם מלא" value={fullName} onChangeText={setFullName} />
+        <TextInput label="מספר טלפון" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
         <TextInput label="כתובת אימייל" value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" />
         <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
       </View>

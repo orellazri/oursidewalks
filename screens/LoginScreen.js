@@ -10,8 +10,8 @@ import TextInput from "../components/TextInput";
 import Title from "../components/Title";
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("ryiseld@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
     try {
