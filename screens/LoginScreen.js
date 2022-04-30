@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, SafeAreaView, StyleSheet } from "react-native";
+import { View, SafeAreaView, StyleSheet, Keyboard } from "react-native";
 import Toast from "react-native-root-toast";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { setItemAsync } from "expo-secure-store";
@@ -16,6 +16,8 @@ export default function LoginScreen({ navigation }) {
 
   const handleSubmit = async () => {
     try {
+      Keyboard.dismiss();
+
       // Log in
       const credentials = await signInWithEmailAndPassword(auth, email, password);
 

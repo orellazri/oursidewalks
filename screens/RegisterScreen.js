@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, SafeAreaView, StyleSheet } from "react-native";
+import { View, SafeAreaView, StyleSheet, Keyboard } from "react-native";
 import Toast from "react-native-root-toast";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
@@ -19,6 +19,8 @@ export default function RegisterScreen({ navigation }) {
 
   const handleSubmit = async () => {
     try {
+      Keyboard.dismiss();
+
       // Sign up
       const credentials = await createUserWithEmailAndPassword(auth, email, password);
 
