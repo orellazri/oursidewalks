@@ -2,9 +2,9 @@ import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindo
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-import Logo from "../components/Logo.js";
 import { colors } from "../utils/data.js";
 import { color } from "../node_modules/react-native/Libraries/Components/View/ReactNativeStyleAttributes.js";
+import Header from "../components/Header.js";
 
 export default function WelcomeScreen({ navigation }) {
   const window = useWindowDimensions();
@@ -17,8 +17,8 @@ export default function WelcomeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.triangle(window)}></View>
 
-      {/* Logo */}
-      <Logo />
+      {/* Header */}
+      <Header />
 
       {/* Title */}
       <View style={styles.titleContainer}>
