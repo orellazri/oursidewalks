@@ -3,7 +3,7 @@ import { Feather } from "@expo/vector-icons";
 
 export default function Header({ navigation }) {
   const openMenu = () => {
-    // TODO: add proper menu
+    // TODO: add proper menu with animation
     navigation.navigate("Login");
   };
 
