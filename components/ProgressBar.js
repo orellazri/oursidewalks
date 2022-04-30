@@ -1,5 +1,7 @@
 import { View, StyleSheet } from "react-native";
 
+import { colors } from "../utils/data";
+
 export default function ProgressBar({ percent }) {
   return (
     <View style={styles.progressBar}>
@@ -19,6 +21,6 @@ const styles = StyleSheet.create({
   fill: (percent) => ({
     flex: 1,
     width: percent,
-    backgroundColor: "#bb0000",
+    backgroundColor: colors.red,
   }),
 });

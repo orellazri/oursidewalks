@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 
 import Logo from "../components/Logo";
+import { colors } from "../utils/data";
 
 export default function ReportConfirmationScreen({ navigation }) {
   return (
@@ -21,14 +22,14 @@ export default function ReportConfirmationScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFCB39",
+    backgroundColor: colors.yellow,
     alignItems: "center",
     paddingTop: "5%",
   },
   bottom: {
     position: "absolute",
     bottom: 0,
-    backgroundColor: "#BB0101",
+    backgroundColor: colors.red,
     width: "100%",
     height: "50%",
   },

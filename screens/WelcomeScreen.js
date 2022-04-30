@@ -3,6 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
 import Logo from "../components/Logo.js";
+import { colors } from "../utils/data.js";
+import { color } from "../node_modules/react-native/Libraries/Components/View/ReactNativeStyleAttributes.js";
 
 export default function WelcomeScreen({ navigation }) {
   const window = useWindowDimensions();
@@ -22,8 +24,8 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>דווחו על מטרד בדרך</Text>
         <View style={styles.chevrons}>
-          <Ionicons name="chevron-down" size={32} color="#BB0101" />
-          <Ionicons name="chevron-down" size={32} color="#BB0101" style={{ marginTop: -15 }} />
+          <Ionicons name="chevron-down" size={32} color={colors.red} />
+          <Ionicons name="chevron-down" size={32} color={colors.red} style={{ marginTop: -15 }} />
         </View>
       </View>
 
@@ -43,7 +45,7 @@ export default function WelcomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F4F4F4",
+    backgroundColor: color.background,
     alignItems: "center",
   },
   triangle: (window) => ({
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
     borderTopWidth: window.height / 2,
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
-    borderTopColor: "#FFCB39",
+    borderTopColor: colors.yellow,
   }),
   titleContainer: {
     marginTop: "15%",

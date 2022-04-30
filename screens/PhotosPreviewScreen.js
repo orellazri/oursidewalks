@@ -5,6 +5,7 @@ import Toast from "react-native-root-toast";
 
 import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
+import { colors } from "../utils/data";
 
 export default function PhotosPreviewScreen({ navigation }) {
   const { photos, setPhotos, setHazardType, setFreetext } = useReport();
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: colors.background,
   },
   titleContainer: {
     marginTop: "10%",
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
   },
   button: {
-    backgroundColor: "#BB0101",
+    backgroundColor: colors.red,
     borderRadius: 100,
     width: 80,
     height: 80,

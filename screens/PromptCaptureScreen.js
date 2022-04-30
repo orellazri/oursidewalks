@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import Logo from "../components/Logo";
 import { useReport } from "../utils/ReportContext";
+import { colors } from "../utils/data";
 
 export default function PromptCaptureScreen({ navigation }) {
   const { photos, setPhotos } = useReport();
@@ -34,8 +35,8 @@ export default function PromptCaptureScreen({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>תעדו את המפגע</Text>
         <View style={styles.chevrons}>
-          <Ionicons name="chevron-down" size={32} color="#FDD15A" />
-          <Ionicons name="chevron-down" size={32} color="#FDD15A" style={{ marginTop: -15 }} />
+          <Ionicons name="chevron-down" size={32} color={colors.lightYellow} />
+          <Ionicons name="chevron-down" size={32} color={colors.lightYellow} style={{ marginTop: -15 }} />
         </View>
       </View>
 
@@ -61,8 +62,8 @@ export default function PromptCaptureScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F4F4F4",
     alignItems: "center",
+    backgroundColor: colors.background,
   },
   titleContainer: {
     marginTop: "20%",
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    backgroundColor: "#BB0101",
+    backgroundColor: colors.red,
     borderRadius: 100,
     width: 125,
     height: 125,

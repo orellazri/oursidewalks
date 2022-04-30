@@ -1,6 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+import { colors } from "../utils/data";
+
 export default function ContinueButton({ text, onPress }) {
   const buttonText = text ? text : "המשך";
 
@@ -14,7 +16,7 @@ export default function ContinueButton({ text, onPress }) {
 
 const styles = StyleSheet.create({
   continueButton: {
-    backgroundColor: "#FFCB39",
+    backgroundColor: colors.yellow,
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 50,

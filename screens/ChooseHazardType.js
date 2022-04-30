@@ -7,6 +7,7 @@ import { db } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
 import ContinueButton from "../components/ContinueButton";
 import Title from "../components/Title";
+import { colors } from "../utils/data";
 
 export default function ChooseHazardType({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#F4F4F4",
+    backgroundColor: colors.background,
   },
   list: {
     width: "70%",
@@ -97,10 +98,10 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 16,
     fontFamily: "Assistant-Bold",
-    color: "#BB0101",
+    color: colors.red,
   },
   chosenButtonContainer: {
-    backgroundColor: "#BB0101",
+    backgroundColor: colors.red,
     flexDirection: "row",
     justifyContent: "space-between",
   },

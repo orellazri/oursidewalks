@@ -9,6 +9,7 @@ import { db, auth } from "../utils/firebase";
 import ContinueButton from "../components/ContinueButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
+import { colors } from "../utils/data";
 
 export default function RegisterScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.background,
   },
   form: {
     width: "80%",

@@ -1,9 +1,11 @@
 import { SafeAreaView, Text, StyleSheet, View, TextInput, KeyboardAvoidingView } from "react-native";
 import { useReport } from "../utils/ReportContext";
 import { Feather } from "@expo/vector-icons";
+
 import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 import Title from "../components/Title";
+import { colors } from "../utils/data";
 
 export default function FillReportScreen({ navigation }) {
   const { hazardType, freetext, setFreetext } = useReport();
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#F4F4F4",
+    backgroundColor: colors.background,
   },
   buttonContainer: {
     backgroundColor: "white",

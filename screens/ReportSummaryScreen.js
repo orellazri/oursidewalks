@@ -13,6 +13,7 @@ import SummaryRow from "../components/SummaryRow";
 import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 import Title from "../components/Title";
+import { colors } from "../utils/data";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { user, photos, hazardType, freetext, location, consent, setConsent } = useReport();
@@ -110,14 +111,15 @@ export default function ReportSummaryScreen({ navigation }) {
 
       {/* Summary */}
       <View style={styles.summaryList}>
-        <SummaryRow text="מיקום זמני" icon={<EvilIcons name="location" size={36} color="#BDBDBD" />} />
-        <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color="#BDBDBD" />} />
-        <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color="#BDBDBD" />} />
+        <SummaryRow text="מיקום זמני" icon={<EvilIcons name="location" size={36} color={colors.gray} />} />
+        <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color={colors.gray} />} />
+        <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color={colors.gray} />} />
 
         {/* Checkbox */}
         <BouncyCheckbox
           text="אני מסכים לשתף את הפרטים שלי"
           style={styles.checkbox}
+          fillColor={colors.yellow}
           textStyle={{
             textDecorationLine: "none",
             color: "black",
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#F4F4F4",
+    backgroundColor: colors.background,
   },
   photo: (window) => ({
     aspectRatio: 1,

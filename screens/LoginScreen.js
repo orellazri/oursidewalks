@@ -8,6 +8,7 @@ import { auth } from "../utils/firebase";
 import ContinueButton from "../components/ContinueButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
+import { colors } from "../utils/data";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.background,
   },
   form: {
     width: "80%",
