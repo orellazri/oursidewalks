@@ -33,7 +33,6 @@ export const ReportProvider = ({ children }) => {
       // User is stored
       // TODO: validate uid. if doesn't exist in firestore, remove key from storage
       setUser(result);
-      console.log(result);
     }
   }, []);
 

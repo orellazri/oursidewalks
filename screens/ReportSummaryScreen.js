@@ -15,7 +15,7 @@ import BackButton from "../components/BackButton";
 import Title from "../components/Title";
 
 export default function ReportSummaryScreen({ navigation }) {
-  const { photos, hazardType, freetext, location, consent, setConsent } = useReport();
+  const { user, photos, hazardType, freetext, location, consent, setConsent } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
   const [loading, setLoading] = useState(false);
@@ -73,6 +73,7 @@ export default function ReportSummaryScreen({ navigation }) {
       freetext,
       location: new GeoPoint(location.latitude, location.longitude),
       created_at: Timestamp.now(),
+      user_id: user,
       consent,
     });
 
