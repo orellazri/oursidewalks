@@ -1,7 +1,9 @@
+// Custom exception to be used when displaying a toast with a custom message
 export function CustomException(message) {
   this.message = message;
 }
 
+// Check if a string is a valid email address
 export function validEmail(email) {
   return String(email)
     .toLowerCase()
@@ -10,6 +12,7 @@ export function validEmail(email) {
     );
 }
 
+// Check if a string contains a number
 export function hasNumber(myString) {
   return /\d/.test(myString);
 }
