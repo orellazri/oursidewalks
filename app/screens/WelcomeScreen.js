@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderTopColor: colors.yellow,
   }),
   titleContainer: {
-    marginTop: "15%",
+    marginTop: "10%",
   },
   title: {
     fontSize: 20,

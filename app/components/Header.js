@@ -10,7 +10,7 @@ import { useReport } from "../utils/ReportContext";
 import MenuItem from "./MenuItem";
 
 export default function Header({ navigation }) {
-  const { uid, setUid } = useReport();
+  const { uid, setUid, user } = useReport();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -50,7 +50,8 @@ export default function Header({ navigation }) {
               <AntDesign name="close" size={26} color="black" />
             </TouchableOpacity>
 
-            <Text>ברוך הבא</Text>
+            <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
+
             <MenuItem text="התנתקות" onPress={handleLogout} last />
           </View>
         ) : (
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: "4%",
+    marginTop: "5%",
     zIndex: 1,
   },
   logo: {
@@ -84,11 +86,11 @@ const styles = StyleSheet.create({
   menuIcon: {},
   menuContainer: {
     position: "absolute",
+    top: 0,
+    left: 0,
     backgroundColor: colors.yellow,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height / 2,
-    top: 0,
-    left: 0,
     alignItems: "flex-start",
     padding: "10%",
   },
