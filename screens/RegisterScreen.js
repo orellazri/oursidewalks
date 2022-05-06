@@ -11,16 +11,23 @@ import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
+import { CustomException, validEmail, hasNumber } from "../utils/utils";
 
 export default function RegisterScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
     try {
       Keyboard.dismiss();
+
+      // Form validation
+      if (fullName == "" || phone == "" || email == "" || password == "") throw new CustomException("חובה להזין את כל הפרטים");
+      if (!validEmail(email)) throw new CustomException("כתובת האימייל שהזנת אינה תקינה");
+      if (password.length < 6) throw new CustomException("הסיסמה חייבת להכיל לפחות 6 תווים");
+      if (hasNumber(fullName)) throw new CustomException("השם המלא שהזנת אינו תקין");
 
       // Sign up
       const credentials = await createUserWithEmailAndPassword(auth, email, password);
@@ -40,9 +47,9 @@ export default function RegisterScreen({ navigation }) {
     } catch (e) {
       console.log(e);
       let errorMessage = "ההרשמה נכשלה";
-      if (e.code == "auth/email-already-in-use") {
-        errorMessage = "כתובת האימייל שהזנת כבר נמצאת בשימוש";
-      }
+      if (e.code == "auth/wrong-password") errorMessage = "ההתחברות נכשלה. אחד מהפרטים שהזנת לא נכונים";
+      if (e instanceof CustomException) errorMessage = e.message;
+
       Toast.show(errorMessage, {
         duration: Toast.durations.LONG,
         shadow: false,

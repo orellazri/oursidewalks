@@ -10,6 +10,7 @@ import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
+import { CustomException, validEmail } from "../utils/utils";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -18,6 +19,11 @@ export default function LoginScreen({ navigation }) {
   const handleSubmit = async () => {
     try {
       Keyboard.dismiss();
+
+      // Form validation
+      if (email == "" || password == "") throw new CustomException("חובה להזין את כל הפרטים");
+      if (!validEmail(email)) throw new CustomException("כתובת האימייל שהזנת אינה תקינה");
+      if (password.length < 6) throw new CustomException("הסיסמה חייבת להכיל לפחות 6 תווים");
 
       // Log in
       const credentials = await signInWithEmailAndPassword(auth, email, password);
@@ -28,9 +34,9 @@ export default function LoginScreen({ navigation }) {
       navigation.navigate("Welcome");
     } catch (e) {
       let errorMessage = "התתחברות נכשלה";
-      if (e.code == "auth/wrong-password") {
-        errorMessage = "ההתחברות נכשלה. אחד מהפרטים שהזנת לא נכונים";
-      }
+      if (e.code == "auth/wrong-password") errorMessage = "ההתחברות נכשלה. אחד מהפרטים שהזנת לא נכונים";
+      if (e instanceof CustomException) errorMessage = e.message;
+
       Toast.show(errorMessage, {
         duration: Toast.durations.LONG,
         shadow: false,
