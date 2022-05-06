@@ -61,35 +61,6 @@ export default function WelcomeScreen({ navigation }) {
         {menuContent}
       </SafeAreaView>
     );
-
-    // {
-    //   /* Menu */
-    // }
-    // {
-    //   menuOpen &&
-    //     (uid ? (
-    //       // User menu
-    //       <View style={styles.menuContainer}>
-    //         <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
-    //           <AntDesign name="close" size={26} color="black" />
-    //         </TouchableOpacity>
-
-    //         <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
-
-    //         <MenuItem text="התנתקות" onPress={handleLogout} last />
-    //       </View>
-    //     ) : (
-    //       // Guest menu
-    //       <View style={styles.menuContainer}>
-    //         <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
-    //           <AntDesign name="close" size={26} color="black" />
-    //         </TouchableOpacity>
-
-    //         <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
-    //         <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
-    //       </View>
-    //     ));
-    // }
   }
 
   return (
