@@ -4,7 +4,7 @@ import { getItemAsync } from "expo-secure-store";
 const ReportContext = createContext(null);
 
 export const ReportProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [uid, setUid] = useState("");
   const [photos, setPhotos] = useState([]);
   const [hazardType, setHazardType] = useState("");
   const [freetext, setFreetext] = useState("");
@@ -12,8 +12,8 @@ export const ReportProvider = ({ children }) => {
   const [consent, setConsent] = useState(false);
 
   const value = {
-    user,
-    setUser,
+    uid,
+    setUid,
     photos,
     setPhotos,
     hazardType,
@@ -28,11 +28,11 @@ export const ReportProvider = ({ children }) => {
 
   // Retrieve user from persistent storage on start
   useEffect(async () => {
-    const result = await getItemAsync("user");
+    const result = await getItemAsync("uid");
     if (result != "") {
       // User is stored
-      // TODO: validate uid. if doesn't exist in firestore, remove key from storage
-      setUser(result);
+      // TODO: validate uid and get details and save to state. if doesn't exist in firestore, remove key from storage
+      setUid(result);
     }
   }, []);
 

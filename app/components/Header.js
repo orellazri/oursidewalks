@@ -10,7 +10,7 @@ import { useReport } from "../utils/ReportContext";
 import MenuItem from "./MenuItem";
 
 export default function Header({ navigation }) {
-  const { user, setUser } = useReport();
+  const { uid, setUid } = useReport();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -26,8 +26,8 @@ export default function Header({ navigation }) {
   const handleLogout = () => {
     closeMenu();
     signOut(auth).then(async () => {
-      setUser(null);
-      await setItemAsync("user", "");
+      setUid("");
+      await setItemAsync("uid", "");
     });
   };
 
@@ -43,7 +43,7 @@ export default function Header({ navigation }) {
 
       {/* Menu */}
       {menuOpen &&
-        (user ? (
+        (uid ? (
           // User menu
           <View style={styles.menuContainer}>
             <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>

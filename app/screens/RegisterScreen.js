@@ -15,7 +15,7 @@ import { useReport } from "../utils/ReportContext";
 import { CustomException, validEmail, hasNumber } from "../utils/utils";
 
 export default function RegisterScreen({ navigation }) {
-  const { setUser } = useReport();
+  const { setUid } = useReport();
 
   const [loading, setLoading] = useState(false);
 
@@ -49,8 +49,8 @@ export default function RegisterScreen({ navigation }) {
       });
 
       // Set user in persistent storage and state
-      setUser(credentials["user"]["uid"]);
-      await setItemAsync("user", credentials["user"]["uid"]);
+      setUid(credentials["user"]["uid"]);
+      await setItemAsync("uid", credentials["user"]["uid"]);
 
       navigation.navigate("Welcome");
     } catch (e) {

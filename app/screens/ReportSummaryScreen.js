@@ -16,7 +16,7 @@ import Title from "../components/Title";
 import { colors } from "../utils/data";
 
 export default function ReportSummaryScreen({ navigation }) {
-  const { user, photos, hazardType, freetext, location, consent, setConsent } = useReport();
+  const { uid, photos, hazardType, freetext, location, consent, setConsent } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
   const [loading, setLoading] = useState(false);
@@ -74,7 +74,7 @@ export default function ReportSummaryScreen({ navigation }) {
       freetext,
       location: new GeoPoint(location.latitude, location.longitude),
       created_at: Timestamp.now(),
-      user_id: user,
+      user_id: uid,
       consent,
     });
 

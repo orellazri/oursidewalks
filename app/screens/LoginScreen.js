@@ -14,7 +14,7 @@ import { CustomException, validEmail } from "../utils/utils";
 import { useReport } from "../utils/ReportContext";
 
 export default function LoginScreen({ navigation }) {
-  const { setUser } = useReport();
+  const { setUid } = useReport();
 
   const [loading, setLoading] = useState(false);
 
@@ -36,8 +36,8 @@ export default function LoginScreen({ navigation }) {
       const credentials = await signInWithEmailAndPassword(auth, email, password);
 
       // Set user in persistent storage and state
-      setUser(credentials["user"]["uid"]);
-      await setItemAsync("user", credentials["user"]["uid"]);
+      setUid(credentials["user"]["uid"]);
+      await setItemAsync("uid", credentials["user"]["uid"]);
 
       navigation.navigate("Welcome");
     } catch (e) {
