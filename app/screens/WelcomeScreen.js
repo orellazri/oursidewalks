@@ -143,6 +143,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.yellow,
     alignItems: "flex-start",
     paddingHorizontal: "5%",
-    paddingTop: "10%",
+    paddingTop: "15%",
   },
 });
