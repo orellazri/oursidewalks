@@ -1,6 +1,6 @@
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-export default function MenuItem({ text, page, navigation, last, setMenuOpen }) {
+export default function MenuItem({ text, page, navigation, last, setMenuOpen, onPress }) {
   const handlePress = () => {
     // Navigate to a page and close the menu after a delay
     // so it won't be seen in the transition
@@ -11,7 +11,7 @@ export default function MenuItem({ text, page, navigation, last, setMenuOpen }) 
   };
 
   return (
-    <TouchableOpacity style={[styles.container, !last ? styles.withLine : null]} onPress={handlePress}>
+    <TouchableOpacity style={[styles.container, !last ? styles.withLine : null]} onPress={onPress ? onPress : handlePress}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
+import { signOut } from "firebase/auth";
+import { setItemAsync } from "expo-secure-store";
 
+import { auth } from "../utils/firebase";
 import { colors } from "../utils/data";
+import { useReport } from "../utils/ReportContext";
 import MenuItem from "./MenuItem";
 
 export default function Header({ navigation }) {
+  const { user, setUser } = useReport();
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const openMenu = () => {
@@ -15,6 +21,14 @@ export default function Header({ navigation }) {
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    closeMenu();
+    signOut(auth).then(async () => {
+      setUser(null);
+      await setItemAsync("user", "");
+    });
   };
 
   return (
@@ -28,16 +42,28 @@ export default function Header({ navigation }) {
       <Image style={styles.logo} source={require("../assets/images/logo.png")} />
 
       {/* Menu */}
-      {menuOpen && (
-        <View style={styles.menuContainer}>
-          <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
-            <AntDesign name="close" size={26} color="black" />
-          </TouchableOpacity>
+      {menuOpen &&
+        (user ? (
+          // User menu
+          <View style={styles.menuContainer}>
+            <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
+              <AntDesign name="close" size={26} color="black" />
+            </TouchableOpacity>
 
-          <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
-          <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
-        </View>
-      )}
+            <Text>ברוך הבא</Text>
+            <MenuItem text="התנתקות" onPress={handleLogout} last />
+          </View>
+        ) : (
+          // Guest menu
+          <View style={styles.menuContainer}>
+            <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
+              <AntDesign name="close" size={26} color="black" />
+            </TouchableOpacity>
+
+            <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
+            <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
+          </View>
+        ))}
     </View>
   );
 }
