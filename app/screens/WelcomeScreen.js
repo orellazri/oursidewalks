@@ -1,24 +1,103 @@
+import { useState } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import { signOut } from "firebase/auth";
+import { setItemAsync } from "expo-secure-store";
 
+import { auth } from "../utils/firebase";
 import { colors } from "../utils/data.js";
-import { color } from "../node_modules/react-native/Libraries/Components/View/ReactNativeStyleAttributes.js";
+import { useReport } from "../utils/ReportContext";
 import Header from "../components/Header.js";
+import MenuItem from "../components/MenuItem.js";
 
 export default function WelcomeScreen({ navigation }) {
+  const { uid, setUid, user } = useReport();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const window = useWindowDimensions();
+
+  const handleLogout = () => {
+    setMenuOpen(false);
+    signOut(auth).then(async () => {
+      setUid("");
+      await setItemAsync("uid", "");
+    });
+  };
 
   const handlePressButton = () => {
     navigation.navigate("ChooseHazardType");
   };
+
+  // Menu
+  if (menuOpen) {
+    let menuContent;
+
+    if (uid) {
+      // User menu
+      menuContent = (
+        <View>
+          <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
+          <MenuItem text="התנתקות" onPress={handleLogout} last />
+        </View>
+      );
+    } else {
+      // Guest menu
+      menuContent = (
+        <View style={{ width: window.width / 1.2 }}>
+          <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
+          <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
+        </View>
+      );
+    }
+
+    return (
+      <SafeAreaView style={styles.menuContainer}>
+        <TouchableOpacity style={styles.menuCloseIcon} onPress={() => setMenuOpen(false)}>
+          <AntDesign name="close" size={26} color="black" />
+        </TouchableOpacity>
+
+        {menuContent}
+      </SafeAreaView>
+    );
+
+    // {
+    //   /* Menu */
+    // }
+    // {
+    //   menuOpen &&
+    //     (uid ? (
+    //       // User menu
+    //       <View style={styles.menuContainer}>
+    //         <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
+    //           <AntDesign name="close" size={26} color="black" />
+    //         </TouchableOpacity>
+
+    //         <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
+
+    //         <MenuItem text="התנתקות" onPress={handleLogout} last />
+    //       </View>
+    //     ) : (
+    //       // Guest menu
+    //       <View style={styles.menuContainer}>
+    //         <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
+    //           <AntDesign name="close" size={26} color="black" />
+    //         </TouchableOpacity>
+
+    //         <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
+    //         <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
+    //       </View>
+    //     ));
+    // }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.triangle(window)}></View>
 
       {/* Header */}
-      <Header navigation={navigation} />
+      <Header navigation={navigation} setMenuOpen={setMenuOpen} />
 
       {/* Title */}
       <View style={styles.titleContainer}>
@@ -45,7 +124,7 @@ export default function WelcomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: colors.background,
     alignItems: "center",
   },
   triangle: (window) => ({
@@ -85,5 +164,12 @@ const styles = StyleSheet.create({
     height: 230,
     resizeMode: "contain",
     alignSelf: "center",
+  },
+  menuContainer: {
+    flex: 1,
+    backgroundColor: colors.yellow,
+    alignItems: "flex-start",
+    paddingHorizontal: "5%",
+    paddingTop: "10%",
   },
 });

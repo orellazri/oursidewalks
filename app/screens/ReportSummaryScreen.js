@@ -85,7 +85,7 @@ export default function ReportSummaryScreen({ navigation }) {
   if (loading) {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#aaa" />
         <Text style={styles.loadingText}>שולח דיווח...</Text>
       </SafeAreaView>
     );

@@ -1,70 +1,16 @@
-import { useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions } from "react-native";
-import { Feather, AntDesign } from "@expo/vector-icons";
-import { signOut } from "firebase/auth";
-import { setItemAsync } from "expo-secure-store";
+import { Feather } from "@expo/vector-icons";
 
-import { auth } from "../utils/firebase";
-import { colors } from "../utils/data";
-import { useReport } from "../utils/ReportContext";
-import MenuItem from "./MenuItem";
-
-export default function Header({ navigation }) {
-  const { uid, setUid, user } = useReport();
-
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const openMenu = () => {
-    // TODO: add animation
-    setMenuOpen(true);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  const handleLogout = () => {
-    closeMenu();
-    signOut(auth).then(async () => {
-      setUid("");
-      await setItemAsync("uid", "");
-    });
-  };
-
+export default function Header({ setMenuOpen }) {
   return (
     <View style={styles.container}>
       {/* Menu Icon */}
-      <TouchableOpacity onPress={openMenu}>
+      <TouchableOpacity onPress={() => setMenuOpen(true)}>
         <Feather style={styles.menuIcon} name="menu" size={24} color="black" />
       </TouchableOpacity>
 
       {/* Logo */}
       <Image style={styles.logo} source={require("../assets/images/logo.png")} />
-
-      {/* Menu */}
-      {menuOpen &&
-        (uid ? (
-          // User menu
-          <View style={styles.menuContainer}>
-            <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
-              <AntDesign name="close" size={26} color="black" />
-            </TouchableOpacity>
-
-            <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
-
-            <MenuItem text="התנתקות" onPress={handleLogout} last />
-          </View>
-        ) : (
-          // Guest menu
-          <View style={styles.menuContainer}>
-            <TouchableOpacity style={styles.menuCloseIcon} onPress={closeMenu}>
-              <AntDesign name="close" size={26} color="black" />
-            </TouchableOpacity>
-
-            <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
-            <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
-          </View>
-        ))}
     </View>
   );
 }
@@ -82,21 +28,5 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     resizeMode: "contain",
-  },
-  menuIcon: {},
-  menuContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    backgroundColor: colors.yellow,
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height / 2,
-    alignItems: "flex-start",
-    padding: "10%",
-  },
-  menuCloseIcon: {
-    marginBottom: 10,
-    marginLeft: "-5%",
-    marginTop: "-2%",
   },
 });

@@ -57,7 +57,7 @@ export default function LoginScreen({ navigation }) {
   if (loading) {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#aaa" />
       </SafeAreaView>
     );
   }
