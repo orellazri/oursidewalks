@@ -59,6 +59,8 @@ export default function WelcomeScreen({ navigation }) {
         </TouchableOpacity>
 
         {menuContent}
+
+        <StatusBar style="dark" />
       </SafeAreaView>
     );
   }
