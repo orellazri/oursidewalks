@@ -5,10 +5,11 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { setItemAsync } from "expo-secure-store";
 
 import { auth } from "../utils/firebase";
+import { colors } from "../utils/data";
 import ContinueButton from "../components/ContinueButton";
+import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
-import { colors } from "../utils/data";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -39,6 +40,9 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Back Button */}
+      <BackButton navigation={navigation} />
+
       {/* Title */}
       <Title text="התחברות" />
 
@@ -56,7 +60,7 @@ export default function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    flex: 1,
     alignItems: "center",
     backgroundColor: colors.background,
   },

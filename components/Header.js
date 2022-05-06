@@ -34,8 +34,8 @@ export default function Header({ navigation }) {
             <AntDesign name="close" size={26} color="black" />
           </TouchableOpacity>
 
-          <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} />
-          <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} last />
+          <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
+          <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
         </View>
       )}
     </View>

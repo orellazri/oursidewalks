@@ -6,10 +6,11 @@ import { setDoc, doc, Timestamp } from "firebase/firestore";
 import { setItemAsync } from "expo-secure-store";
 
 import { db, auth } from "../utils/firebase";
+import { colors } from "../utils/data";
 import ContinueButton from "../components/ContinueButton";
+import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Title from "../components/Title";
-import { colors } from "../utils/data";
 
 export default function RegisterScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -51,6 +52,9 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Back Button */}
+      <BackButton navigation={navigation} />
+
       {/* Title */}
       <Title text="הרשמה" />
 
@@ -70,7 +74,7 @@ export default function RegisterScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    flex: 1,
     alignItems: "center",
     backgroundColor: colors.background,
   },
