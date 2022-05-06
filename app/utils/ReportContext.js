@@ -18,6 +18,8 @@ export const ReportProvider = ({ children }) => {
   const value = {
     uid,
     setUid,
+    user,
+    setUser,
     photos,
     setPhotos,
     hazardType,
@@ -45,9 +47,9 @@ export const ReportProvider = ({ children }) => {
         return;
       }
 
-      // UID exists. TODO: Get data
-      console.log(docSnapshot.data());
+      // UID exists. Get data and save to state
       setUid(result);
+      setUser(docSnapshot.data());
     }
   }, []);
 
