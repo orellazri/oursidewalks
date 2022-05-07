@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Logo /> renders correctly 1`] = `
+<Image
+  source={1}
+  style={
+    Object {
+      "alignSelf": "flex-end",
+      "marginLeft": 40,
+      "marginTop": 10,
+      "resizeMode": "contain",
+      "right": 20,
+      "width": 150,
+    }
+  }
+/>
+`;
