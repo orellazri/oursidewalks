@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, StyleSheet, View, TextInput, KeyboardAvoidingView } from "react-native";
+import { SafeAreaView, Text, StyleSheet, View, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import { useReport } from "../utils/ReportContext";
 import { Feather } from "@expo/vector-icons";
 
@@ -39,7 +39,7 @@ export default function FillReportScreen({ navigation }) {
       />
 
       {/* Continue Button */}
-      <KeyboardAvoidingView behavior="padding" style={styles.continueButton}>
+      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : ""} style={styles.continueButton}>
         <ContinueButton onPress={handleContinue} />
       </KeyboardAvoidingView>
     </SafeAreaView>
