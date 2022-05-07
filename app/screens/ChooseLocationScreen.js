@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, Platform } from "react-native";
+import { View, StyleSheet, Dimensions, SafeAreaView, Text, Platform } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";

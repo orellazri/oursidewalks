@@ -39,7 +39,7 @@ export default function FillReportScreen({ navigation }) {
       />
 
       {/* Continue Button */}
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : ""} style={styles.continueButton}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : ""} style={styles.continueButton}>
         <ContinueButton onPress={handleContinue} />
       </KeyboardAvoidingView>
     </SafeAreaView>
