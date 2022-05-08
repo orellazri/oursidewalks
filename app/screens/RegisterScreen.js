@@ -33,7 +33,7 @@ export default function RegisterScreen({ navigation }) {
       if (!validEmail(email)) throw new CustomException("כתובת האימייל שהזנת אינה תקינה");
       if (password.length < 6) throw new CustomException("הסיסמה חייבת להכיל לפחות 6 תווים");
       if (hasNumber(fullName)) throw new CustomException("השם המלא שהזנת אינו תקין");
-      if (phone.length != 10) throw new CustomException("מספר הטלפון חייב להכיל בדיוק 10 מספרים");
+      if (phone.length < 9 || phone.length > 11) throw new CustomException("מספר הטלפון שהזנת לא תקין");
 
       setLoading(true);
 
