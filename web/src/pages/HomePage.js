@@ -1,6 +1,6 @@
 export default function HomePage() {
   const generateReport = () => {
-    fetch("http://localhost:5001/ourstreets-app/europe-west1/generateReport")
+    fetch("https://europe-west1-ourstreets-app.cloudfunctions.net/generateReport")
       .then((response) => {
         response.text().then((text) => {
           require("downloadjs")(text, "report.csv", "text/csv");
