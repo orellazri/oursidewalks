@@ -3,6 +3,9 @@ const { BigQuery } = require("@google-cloud/bigquery");
 const { Parser } = require("json2csv");
 
 exports.generateReport = functions.region("europe-west1").https.onRequest((request, response) => {
+  // TODO: Change this after deploying web app
+  response.set("Access-Control-Allow-Origin", "*");
+
   const bigquery = new BigQuery({ projectId: "ourstreets-app" });
   bigquery
     .query({
@@ -23,7 +26,7 @@ exports.generateReport = functions.region("europe-west1").https.onRequest((reque
       const json2csv = new Parser({ fields: fields });
       try {
         const csv = json2csv.parse(results[0]);
-        response.attachment("report.csv");
+        // response.attachment("report.csv");
         response.status(200).send(csv);
       } catch (error) {
         console.log(error);
