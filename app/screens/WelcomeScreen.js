@@ -37,7 +37,7 @@ export default function WelcomeScreen({ navigation }) {
     if (uid) {
       // User menu
       menuContent = (
-        <View>
+        <View style={{ paddingTop: "5%" }}>
           <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
           <MenuItem text="התנתקות" onPress={handleLogout} last />
         </View>
@@ -45,7 +45,7 @@ export default function WelcomeScreen({ navigation }) {
     } else {
       // Guest menu
       menuContent = (
-        <View style={{ width: window.width / 1.2 }}>
+        <View>
           <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
           <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
         </View>
@@ -54,11 +54,13 @@ export default function WelcomeScreen({ navigation }) {
 
     return (
       <SafeAreaView style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuCloseIcon} onPress={() => setMenuOpen(false)}>
-          <AntDesign name="close" size={26} color="black" />
-        </TouchableOpacity>
+        <View style={styles.menuContentContainer}>
+          <TouchableOpacity style={styles.menuCloseIcon} onPress={() => setMenuOpen(false)}>
+            <AntDesign name="close" size={26} color="black" />
+          </TouchableOpacity>
 
-        {menuContent}
+          {menuContent}
+        </View>
 
         <StatusBar style="dark" />
       </SafeAreaView>
@@ -144,5 +146,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     paddingHorizontal: "5%",
     paddingTop: "15%",
+  },
+  menuCloseIcon: {
+    marginLeft: "-4%",
+  },
+  menuContentContainer: {
+    alignItems: "flex-start",
+    width: "100%",
+    marginHorizontal: "10%",
+    marginVertical: "14%",
   },
 });
