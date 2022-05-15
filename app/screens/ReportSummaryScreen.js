@@ -6,6 +6,7 @@ import { addDoc, collection, Timestamp, GeoPoint } from "firebase/firestore";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import uuid from "react-native-uuid";
+import Geocoder from "react-native-geocoding";
 
 import { storage, db } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
@@ -14,16 +15,29 @@ import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 import Title from "../components/Title";
 import { colors } from "../utils/data";
+import { PLACES_API_KEY } from "../utils/keys";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { uid, photos, hazardType, freetext, location, consent, setConsent } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
+  const [locationText, setLocationText] = useState("");
   const [loading, setLoading] = useState(false);
 
   const window = useWindowDimensions();
 
   useEffect(() => {
+    // Get location text with reverse geocoding
+    Geocoder.init(PLACES_API_KEY);
+    Geocoder.from(location.latitude, location.longitude).then((json) => {
+      let address = json.results[0].formatted_address;
+      if (address.length > 40) {
+        setLocationText(address.substring(0, 40) + "...");
+      } else {
+        setLocationText(address);
+      }
+    });
+
     if (freetext.length == 0) {
       setTruncatedFreetext("לא הוזן טקסט חופשי");
     } else if (freetext.length > 30) {
@@ -111,7 +125,7 @@ export default function ReportSummaryScreen({ navigation }) {
 
       {/* Summary */}
       <View style={styles.summaryList}>
-        <SummaryRow text="מיקום זמני" icon={<EvilIcons name="location" size={36} color={colors.gray} />} />
+        <SummaryRow text={locationText} icon={<EvilIcons name="location" size={36} color={colors.gray} />} />
         <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color={colors.gray} />} />
         <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color={colors.gray} />} />
 
