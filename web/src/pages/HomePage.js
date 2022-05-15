@@ -12,9 +12,9 @@ export default function HomePage() {
   };
 
   return (
-    <div className="container mx-auto pt-10 text-center">
-      <h1 className="font-bold text-xl">ברחובות שלנו - ניהול</h1>
-      <button onClick={generateReport} className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <div className="container pt-10 mx-auto text-center">
+      <h1 className="text-xl font-bold">ברחובות שלנו - ניהול</h1>
+      <button onClick={generateReport} className="px-4 py-2 mt-5 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
         יצירת דוח
       </button>
     </div>
