@@ -14,7 +14,7 @@ import { CustomException, validEmail } from "../utils/utils";
 import { useReport } from "../utils/ReportContext";
 
 export default function LoginScreen({ navigation }) {
-  const { setUid } = useReport();
+  const { setUid, retrieveUserInfo } = useReport();
 
   const [loading, setLoading] = useState(false);
 
@@ -33,14 +33,16 @@ export default function LoginScreen({ navigation }) {
       setLoading(true);
 
       // Log in
-      const credentials = await signInWithEmailAndPassword(auth, email, password);
+      const credentials = await signInWithEmailAndPassword(auth, email.toLowerCase(), password);
 
       // Set user in persistent storage and state
       setUid(credentials["user"]["uid"]);
       await setItemAsync("uid", credentials["user"]["uid"]);
+      retrieveUserInfo(credentials["user"]["uid"]);
 
       navigation.navigate("Welcome");
     } catch (e) {
+      console.log(e);
       let errorMessage = "התתחברות נכשלה";
       if (e.code == "auth/wrong-password") errorMessage = "ההתחברות נכשלה. אחד מהפרטים שהזנת לא נכונים";
       if (e instanceof CustomException) errorMessage = e.message;

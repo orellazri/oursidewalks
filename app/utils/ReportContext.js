@@ -15,6 +15,21 @@ export const ReportProvider = ({ children }) => {
   const [location, setLocation] = useState(null);
   const [consent, setConsent] = useState(false);
 
+  const retrieveUserInfo = async (uid) => {
+    // Validate uid and get details
+    const docSnapshot = await getDoc(doc(db, "users", uid));
+    if (!docSnapshot.exists()) {
+      // UID doesn't exist. Remove uid from persistent storage and state
+      setUid("");
+      await setItemAsync("uid", "");
+      return false;
+    }
+
+    // UID exists. Get data and save to state
+    setUid(uid);
+    setUser(docSnapshot.data());
+  };
+
   const value = {
     uid,
     setUid,
@@ -30,26 +45,15 @@ export const ReportProvider = ({ children }) => {
     setLocation,
     consent,
     setConsent,
+    retrieveUserInfo,
   };
 
   // Retrieve user from persistent storage on start
   useEffect(async () => {
     const result = await getItemAsync("uid");
     if (result && result != "") {
-      // User is stored
-
-      // Validate uid and get details
-      const docSnapshot = await getDoc(doc(db, "users", result));
-      if (!docSnapshot.exists()) {
-        // UID doesn't exist. Remove uid from persistent storage and state
-        setUid("");
-        await setItemAsync("uid", "");
-        return;
-      }
-
-      // UID exists. Get data and save to state
-      setUid(result);
-      setUser(docSnapshot.data());
+      // User is stored. Validate uid and retrieve info
+      retrieveUserInfo(result);
     }
   }, []);
 

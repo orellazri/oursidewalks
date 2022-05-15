@@ -38,7 +38,7 @@ export default function RegisterScreen({ navigation }) {
       setLoading(true);
 
       // Sign up
-      const credentials = await createUserWithEmailAndPassword(auth, email, password);
+      const credentials = await createUserWithEmailAndPassword(auth, email.toLowerCase(), password);
 
       // Add document to database
       await setDoc(doc(db, "users", credentials["user"]["uid"]), {
@@ -51,6 +51,7 @@ export default function RegisterScreen({ navigation }) {
       // Set user in persistent storage and state
       setUid(credentials["user"]["uid"]);
       await setItemAsync("uid", credentials["user"]["uid"]);
+      retrieveUserInfo(credentials["user"]["uid"]);
 
       navigation.navigate("Welcome");
     } catch (e) {
