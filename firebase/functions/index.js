@@ -22,11 +22,17 @@ exports.generateReport = functions.region("europe-west1").https.onRequest((reque
         FROM `ourstreets-app.firestore_reports.reports_raw_latest`",
     })
     .then((results) => {
+      // Initialize json2csv with fields
       var fields = ["user_id", "hazard_type", "freetext", "longitude", "latitude", "photos", "consent", "created_at"];
       const json2csv = new Parser({ fields: fields });
       try {
+        // Replace biq query date with string date
+        results[0].map((item) => {
+          item.created_at = item.created_at.value;
+        });
+
+        // Parse data
         const csv = json2csv.parse(results[0]);
-        // response.attachment("report.csv");
         response.status(200).send(csv);
       } catch (error) {
         console.log(error);
