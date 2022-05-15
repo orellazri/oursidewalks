@@ -42,7 +42,6 @@ export default function LoginScreen({ navigation }) {
 
       navigation.navigate("Welcome");
     } catch (e) {
-      console.log(e);
       let errorMessage = "התתחברות נכשלה";
       if (e.code == "auth/wrong-password") errorMessage = "ההתחברות נכשלה. אחד מהפרטים שהזנת לא נכונים";
       if (e instanceof CustomException) errorMessage = e.message;
