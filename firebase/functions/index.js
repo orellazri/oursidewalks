@@ -11,15 +11,18 @@ exports.generateReport = functions.region("europe-west1").https.onRequest((reque
     .query({
       query:
         "SELECT \
-          JSON_VALUE(DATA, '$.user_id') AS user_id, \
-          JSON_VALUE(DATA, '$.hazard_type') AS hazard_type, \
-          JSON_VALUE(DATA, '$.freetext') AS freetext, \
-          JSON_VALUE(DATA, '$.location._longitude') AS longitude, \
-          JSON_VALUE(DATA, '$.location._latitude') AS latitude, \
-          JSON_VALUE_ARRAY(DATA, '$.photos') AS photos, \
-          JSON_VALUE(DATA, '$.consent') AS consent, \
-          DATE(TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(DATA, '$.created_at._seconds') AS int64))) AS created_at \
-        FROM `ourstreets-app.firestore_reports.reports_raw_latest`",
+          JSON_VALUE(users.data, '$.full_name') AS full_name, \
+          JSON_VALUE(users.data, '$.email') AS email, \
+          JSON_VALUE(reports.data, '$.hazard_type') AS hazard_type, \
+          JSON_VALUE(reports.data, '$.freetext') AS freetext, \
+          JSON_VALUE(reports.data, '$.location._longitude') AS longitude, \
+          JSON_VALUE(reports.data, '$.location._latitude') AS latitude, \
+          JSON_VALUE_ARRAY(reports.data, '$.photos') AS photos, \
+          JSON_VALUE(reports.data, '$.consent') AS consent, \
+          DATE(TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(reports.data, '$.created_at._seconds') AS int64))) AS created_at \
+        FROM `ourstreets-app.firestore_reports.reports_raw_latest` reports \
+        LEFT JOIN `ourstreets-app.firestore_users.users_raw_latest` users \
+        ON JSON_VALUE(reports.data, '$.user_id') = users.document_id",
     })
     .then((results) => {
       // Initialize json2csv with fields
