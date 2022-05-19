@@ -15,7 +15,7 @@ import { useReport } from "../utils/ReportContext";
 import { CustomException, validEmail, hasNumber } from "../utils/utils";
 
 export default function RegisterScreen({ navigation }) {
-  const { setUid } = useReport();
+  const { setUid, retrieveUserInfo } = useReport();
 
   const [loading, setLoading] = useState(false);
 
