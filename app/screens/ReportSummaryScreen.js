@@ -28,15 +28,15 @@ export default function ReportSummaryScreen({ navigation }) {
 
   useEffect(() => {
     // Get location text with reverse geocoding
-    Geocoder.init(PLACES_API_KEY);
-    Geocoder.from(location.latitude, location.longitude).then((json) => {
-      let address = json.results[0].formatted_address;
-      if (address.length > 40) {
-        setLocationText(address.substring(0, 40) + "...");
-      } else {
-        setLocationText(address);
-      }
-    });
+    // Geocoder.init(PLACES_API_KEY);
+    // Geocoder.from(location.latitude, location.longitude).then((json) => {
+    //   let address = json.results[0].formatted_address;
+    //   if (address.length > 40) {
+    //     setLocationText(address.substring(0, 40) + "...");
+    //   } else {
+    //     setLocationText(address);
+    //   }
+    // });
 
     if (freetext.length == 0) {
       setTruncatedFreetext("לא הוזן טקסט חופשי");
@@ -125,7 +125,7 @@ export default function ReportSummaryScreen({ navigation }) {
 
       {/* Summary */}
       <View style={styles.summaryList}>
-        <SummaryRow text={locationText} icon={<EvilIcons name="location" size={36} color={colors.gray} />} />
+        {/* <SummaryRow text={locationText} icon={<EvilIcons name="location" size={36} color={colors.gray} />} /> */}
         <SummaryRow text={hazardType.title} icon={<EvilIcons name="question" size={36} color={colors.gray} />} />
         <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color={colors.gray} />} />
 
