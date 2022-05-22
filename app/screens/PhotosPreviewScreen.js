@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList, useWindowDimensions } from "react-native";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-root-toast";
 
@@ -48,6 +48,10 @@ export default function PhotosPreviewScreen({ navigation }) {
     }
   };
 
+  const removePhoto = (photo) => {
+    setPhotos(photos.filter((item) => item != photo));
+  };
+
   const handleContinue = () => {
     navigation.navigate("ChooseLocation");
   };
@@ -68,7 +72,19 @@ export default function PhotosPreviewScreen({ navigation }) {
       <FlatList
         horizontal
         data={photos}
-        renderItem={({ item }) => <Image source={item} style={styles.photo(window)} />}
+        renderItem={({ item, index }) => (
+          <View style={styles.photoContainer(window)}>
+            <TouchableOpacity
+              style={styles.photoRemoveIcon}
+              onPress={() => {
+                removePhoto(item);
+              }}
+            >
+              <Ionicons name="md-trash" size={22} color="white" />
+            </TouchableOpacity>
+            <Image source={item} style={styles.photo} />
+          </View>
+        )}
         keyExtractor={(photo) => photo.uri}
         style={styles.list}
         contentContainerStyle={{ alignItems: "center" }}
@@ -119,13 +135,27 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 30,
   },
-  photo: (window) => ({
+  photoContainer: (window) => ({
     aspectRatio: 3 / 5,
     width: window.width / 1.6,
-    resizeMode: "cover",
     marginHorizontal: 10,
-    borderRadius: 15,
+    position: "relative",
   }),
+  photo: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    borderRadius: 15,
+  },
+  photoRemoveIcon: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 2,
+    backgroundColor: "#333",
+    borderRadius: 20,
+    padding: 5,
+  },
   buttons: {
     flexDirection: "row",
     justifyContent: "space-around",
