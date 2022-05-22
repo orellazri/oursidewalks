@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonImage: {
-    width: 230,
-    height: 230,
+    width: 260,
+    height: 260,
     resizeMode: "contain",
     alignSelf: "center",
   },
