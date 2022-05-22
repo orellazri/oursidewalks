@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from "react-native";
+import { useState, useEffect } from "react";
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions, BackHandler } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { signOut } from "firebase/auth";
@@ -29,6 +29,20 @@ export default function WelcomeScreen({ navigation }) {
   const handlePressButton = () => {
     navigation.navigate("ChooseHazardType");
   };
+
+  // TODO: Test menu back button on Android
+  useEffect(() => {
+    const backAction = () => {
+      if (menuOpen) {
+        setMenuOpen(false);
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () => backHandler.remove();
+  }, []);
 
   // Menu
   if (menuOpen) {
