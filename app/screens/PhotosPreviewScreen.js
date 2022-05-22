@@ -8,14 +8,13 @@ import ContinueButton from "../components/ContinueButton";
 import { colors } from "../utils/data";
 
 export default function PhotosPreviewScreen({ navigation }) {
-  const { photos, setPhotos, setHazardType, setFreetext } = useReport();
+  const { photos, setPhotos, resetReport } = useReport();
 
   const window = useWindowDimensions();
 
   const handleClose = () => {
     navigation.navigate("PromptCapture");
-    setPhotos([]);
-    setFreetext("");
+    resetReport();
   };
 
   const openCamera = () => {

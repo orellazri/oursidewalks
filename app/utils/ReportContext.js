@@ -15,6 +15,16 @@ export const ReportProvider = ({ children }) => {
   const [location, setLocation] = useState(null);
   const [consent, setConsent] = useState(false);
 
+  // Reset the report (when going back)
+  const resetReport = () => {
+    setPhotos([]);
+    setHazardType("");
+    setFreetext("");
+    setLocation(null);
+    setConsent(false);
+  };
+
+  // Retrieve the user's info by uid from firebase and populate state
   const retrieveUserInfo = async (uid) => {
     // Validate uid and get details
     const docSnapshot = await getDoc(doc(db, "users", uid));
@@ -45,6 +55,7 @@ export const ReportProvider = ({ children }) => {
     setLocation,
     consent,
     setConsent,
+    resetReport,
     retrieveUserInfo,
   };
 
