@@ -34,10 +34,10 @@ export default function WelcomeScreen({ navigation }) {
     navigation.navigate("Terms");
   };
 
-  // TODO: Test menu back button on Android
   useEffect(() => {
     const backAction = () => {
       if (menuOpen) {
+        console.log("BACK");
         setMenuOpen(false);
         return true;
       }
@@ -46,7 +46,7 @@ export default function WelcomeScreen({ navigation }) {
 
     const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
     return () => backHandler.remove();
-  }, []);
+  }, [menuOpen]);
 
   // Menu
   if (menuOpen) {
