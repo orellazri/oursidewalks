@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   photo: (window) => ({
-    aspectRatio: 1,
-    width: window.width / 1.5,
+    aspectRatio: 3 / 5,
+    width: window.width / 1.8,
     resizeMode: "cover",
     marginHorizontal: 10,
     borderRadius: 15,
