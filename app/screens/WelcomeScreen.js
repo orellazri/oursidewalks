@@ -37,7 +37,6 @@ export default function WelcomeScreen({ navigation }) {
   useEffect(() => {
     const backAction = () => {
       if (menuOpen) {
-        console.log("BACK");
         setMenuOpen(false);
         return true;
       }
