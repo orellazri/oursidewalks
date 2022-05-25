@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
 
-export default function Title({ text }) {
+export default function Title(props) {
+  let style = props.style ? [styles.title, props.style] : styles.title;
+
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>{text}</Text>
+      <Text style={style}>{props.text}</Text>
     </View>
   );
 }

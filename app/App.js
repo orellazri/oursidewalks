@@ -11,12 +11,13 @@ import PromptCaptureScreen from "./screens/PromptCaptureScreen";
 import CameraCaptureScreen from "./screens/CameraCaptureScreen";
 import PhotosPreviewScreen from "./screens/PhotosPreviewScreen";
 import ChooseLocationScreen from "./screens/ChooseLocationScreen";
-import ChooseHazardType from "./screens/ChooseHazardType";
+import ChooseHazardTypeScreen from "./screens/ChooseHazardTypeScreen";
 import FillReportScreen from "./screens/FillReportScreen";
 import ReportSummaryScreen from "./screens/ReportSummaryScreen";
 import ReportConfirmationScreen from "./screens/ReportConfirmationScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import TermsScreen from "./screens/TermsScreen";
 
 LogBox.ignoreLogs(["Setting a timer", "AsyncStorage has been extracted"]);
 
@@ -50,7 +51,7 @@ export default function App() {
                 gestureEnabled: false,
               }}
             />
-            <Stack.Screen name="ChooseHazardType" component={ChooseHazardType} />
+            <Stack.Screen name="ChooseHazardType" component={ChooseHazardTypeScreen} />
             <Stack.Screen name="PromptCapture" component={PromptCaptureScreen} />
             <Stack.Screen name="CameraCapture" component={CameraCaptureScreen} />
             <Stack.Screen name="PhotosPreview" component={PhotosPreviewScreen} />
@@ -66,6 +67,7 @@ export default function App() {
             />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Terms" component={TermsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </RootSiblingParent>

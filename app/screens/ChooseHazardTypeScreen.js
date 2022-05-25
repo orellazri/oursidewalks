@@ -9,7 +9,7 @@ import ContinueButton from "../components/ContinueButton";
 import Title from "../components/Title";
 import { colors } from "../utils/data";
 
-export default function ChooseHazardType({ navigation }) {
+export default function ChooseHazardTypeScreen({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
   const [chosenId, setChosenId] = useState(null);
   const [loading, setLoading] = useState(true);

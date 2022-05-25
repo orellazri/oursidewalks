@@ -30,6 +30,10 @@ export default function WelcomeScreen({ navigation }) {
     navigation.navigate("ChooseHazardType");
   };
 
+  const handleTerms = () => {
+    navigation.navigate("Terms");
+  };
+
   // TODO: Test menu back button on Android
   useEffect(() => {
     const backAction = () => {
@@ -67,14 +71,21 @@ export default function WelcomeScreen({ navigation }) {
     }
 
     return (
+      // Menu
       <SafeAreaView style={styles.menuContainer}>
         <View style={styles.menuContentContainer}>
           <TouchableOpacity style={styles.menuCloseIcon} onPress={() => setMenuOpen(false)}>
             <AntDesign name="close" size={26} color="black" />
           </TouchableOpacity>
 
+          {/* Menu content */}
           {menuContent}
         </View>
+
+        {/* Terms button */}
+        <TouchableOpacity style={styles.termsContainer} onPress={handleTerms}>
+          <Text style={styles.termsText}>תנאי שימוש</Text>
+        </TouchableOpacity>
 
         <StatusBar style="dark" />
       </SafeAreaView>
@@ -158,6 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.yellow,
     alignItems: "flex-start",
+    justifyContent: "space-between",
     paddingHorizontal: "5%",
     paddingTop: "15%",
   },
@@ -169,5 +181,12 @@ const styles = StyleSheet.create({
     width: "100%",
     marginHorizontal: "10%",
     marginVertical: "14%",
+  },
+  termsContainer: {
+    marginBottom: "10%",
+    marginHorizontal: "10%",
+  },
+  termsText: {
+    fontSize: 17,
   },
 });

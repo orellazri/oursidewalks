@@ -1,9 +1,15 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function BackButton({ navigation }) {
+export default function BackButton({ navigation, screen }) {
   const handlePress = () => {
-    navigation.goBack();
+    if (screen) {
+      // If a screen was given, navigate to it
+      navigation.navigate(screen);
+    } else {
+      // Go back by default if no screen was given
+      navigation.goBack();
+    }
   };
 
   return (
