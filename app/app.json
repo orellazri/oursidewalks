@@ -6,8 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "primaryColor": "#FFCB39",
-    "bundleIdentifier": "org.ourstreets.ourstreets",
-    "package": "org.ourstreets.ourstreets",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,6 +16,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "org.ourstreets.ourstreets",
       "supportsTablet": false,
       "infoPlist": {
         "NSCameraUsageDescription": "Allow access to camera to take photos of hazards",
@@ -26,6 +25,7 @@
       }
     },
     "android": {
+      "package": "org.ourstreets.ourstreets",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#f4f4f4"
