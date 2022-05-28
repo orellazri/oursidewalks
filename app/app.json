@@ -18,7 +18,12 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow access to camera to take photos of hazards",
+        "NSPhotoLibraryUsageDescription": "Allow access to photo library to choose photos of hazards",
+        "NSLocationWhenInUseUsageDescription": "Allow access to location to attach to the hazard report"
+      }
     },
     "android": {
       "adaptiveIcon": {
