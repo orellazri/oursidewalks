@@ -6,7 +6,7 @@ import { addDoc, collection, Timestamp, GeoPoint } from "firebase/firestore";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import uuid from "react-native-uuid";
-import Geocoder from "react-native-geocoding";
+// import Geocoder from "react-native-geocoding";
 
 import { storage, db } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
@@ -15,7 +15,7 @@ import ContinueButton from "../components/ContinueButton";
 import BackButton from "../components/BackButton";
 import Title from "../components/Title";
 import { colors } from "../utils/data";
-import { PLACES_API_KEY } from "../utils/keys";
+// import { PLACES_API_KEY } from "../utils/keys";
 
 export default function ReportSummaryScreen({ navigation }) {
   const { uid, photos, hazardType, freetext, location, consent, setConsent } = useReport();
