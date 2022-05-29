@@ -81,29 +81,18 @@ export default function RegisterScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       {/* Back Button */}
       <BackButton navigation={navigation} />
-
       {/* Title */}
       <Title text="הרשמה" />
 
-      <KeyboardAvoidingView behavior="position">
-        <View>
-          {/* Form */}
-          <View style={styles.form}>
-            <TextInput label="שם מלא" value={fullName} onChangeText={setFullName} />
-            <TextInput label="מספר טלפון" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
-            <TextInput
-              label="כתובת אימייל"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoComplete="email"
-            />
-            <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
-          </View>
-          {/* Continue Button */}
-          <ContinueButton onPress={handleSubmit} />
-        </View>
-      </KeyboardAvoidingView>
+      {/* Form */}
+      <View style={styles.form}>
+        <TextInput label="שם מלא" value={fullName} onChangeText={setFullName} />
+        <TextInput label="מספר טלפון" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
+        <TextInput label="כתובת אימייל" value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" />
+        <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
+      </View>
+      {/* Continue Button */}
+      <ContinueButton onPress={handleSubmit} />
     </SafeAreaView>
   );
 }
