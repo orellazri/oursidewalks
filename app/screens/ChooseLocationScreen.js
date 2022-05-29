@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, SafeAreaView, Text, Platform } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 
 import { useReport } from "../utils/ReportContext";
@@ -56,24 +56,27 @@ export default function ChooseLocationScreen({ navigation }) {
       <BackButton navigation={navigation} />
 
       {/* Location input */}
-      <View style={styles.inputContainer}>
-        <GooglePlacesAutocomplete
-          placeholder="הזן מיקום..."
-          query={{ key: PLACES_API_KEY, language: "he", components: "country:il" }}
-          styles={{
-            textInput: { textAlign: "right", color: "black" },
-          }}
-          textInputProps={{
-            placeholderTextColor: "#777",
-          }}
-          enablePoweredByContainer={false}
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            const { lat: latitude, lng: longitude } = details.geometry.location;
-            setLocation({ latitude, longitude, latitudeDelta: 0.004, longitudeDelta: 0.004 });
-            setInitialLocation({ latitude, longitude, latitudeDelta: 0.004, longitudeDelta: 0.004 });
-          }}
-        />
+      <View style={styles.searchContainer}>
+        <View style={styles.inputContainer}>
+          <GooglePlacesAutocomplete
+            placeholder="הזן מיקום..."
+            query={{ key: PLACES_API_KEY, language: "he", components: "country:il" }}
+            styles={{
+              textInput: { textAlign: "right", color: "black" },
+            }}
+            textInputProps={{
+              placeholderTextColor: "#777",
+            }}
+            enablePoweredByContainer={false}
+            fetchDetails={true}
+            onPress={(data, details = null) => {
+              const { lat: latitude, lng: longitude } = details.geometry.location;
+              setLocation({ latitude, longitude, latitudeDelta: 0.004, longitudeDelta: 0.004 });
+              setInitialLocation({ latitude, longitude, latitudeDelta: 0.004, longitudeDelta: 0.004 });
+            }}
+          />
+        </View>
+        <Text style={styles.searchTooltipText}>באפשרותך לגרור את הסמן למיקום מדויק</Text>
       </View>
 
       {/* Continue button */}
@@ -82,7 +85,7 @@ export default function ChooseLocationScreen({ navigation }) {
       </View>
 
       {/* Map */}
-      <MapView style={styles.map} initialRegion={initialLocation} region={initialLocation}>
+      <MapView style={styles.map} initialRegion={initialLocation} region={initialLocation} provider={PROVIDER_GOOGLE}>
         {location && (
           <Marker
             coordinate={location}
@@ -108,23 +111,32 @@ const styles = StyleSheet.create({
     height: Dimensions.get("screen").height,
     zIndex: 0,
   },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+  searchContainer: {
     position: "absolute",
     top: "10%",
     zIndex: 1,
+    width: "90%",
+    alignItems: "center",
+  },
+  inputContainer: {
+    flexDirection: "row",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderColor: "#ccc",
     borderRadius: 5,
-    width: "90%",
     backgroundColor: "white",
     elevation: 4,
     shadowColor: "#777",
     shadowRadius: 2,
     shadowOpacity: 0.2,
+  },
+  searchTooltipText: {
+    marginTop: 10,
+    textShadowColor: "#eee",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 1,
+    color: "black",
+    fontSize: 15,
   },
   locationInput: {
     paddingLeft: 8,
