@@ -13,3 +13,5 @@ web-build/
 .env
 
 .DS_Store
+
+app.json
