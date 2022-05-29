@@ -21,7 +21,7 @@ export default function ReportSummaryScreen({ navigation }) {
   const { uid, photos, hazardType, freetext, location, consent, setConsent } = useReport();
 
   const [truncatedFreetext, setTruncatedFreetext] = useState("");
-  const [locationText, setLocationText] = useState("");
+  // const [locationText, setLocationText] = useState("");
   const [loading, setLoading] = useState(false);
 
   const window = useWindowDimensions();
@@ -130,18 +130,20 @@ export default function ReportSummaryScreen({ navigation }) {
         <SummaryRow text={truncatedFreetext} icon={<SimpleLineIcons name="note" size={26} color={colors.gray} />} />
 
         {/* Checkbox */}
-        <BouncyCheckbox
-          text="אני מסכים לשתף את הפרטים שלי"
-          style={styles.checkbox}
-          fillColor={colors.yellow}
-          textStyle={{
-            textDecorationLine: "none",
-            color: "black",
-          }}
-          onPress={(isChecked) => {
-            setConsent(isChecked);
-          }}
-        />
+        {uid ? (
+          <BouncyCheckbox
+            text="אני מסכים לשתף את הפרטים שלי"
+            style={styles.checkbox}
+            fillColor={colors.yellow}
+            textStyle={{
+              textDecorationLine: "none",
+              color: "black",
+            }}
+            onPress={(isChecked) => {
+              setConsent(isChecked);
+            }}
+          />
+        ) : null}
       </View>
 
       {/* Buttons */}
