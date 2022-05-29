@@ -15,6 +15,8 @@
   "dependencies": {
     "@google-cloud/bigquery": "^5.12.0",
     "@googlemaps/google-maps-services-js": "^3.3.14",
+    "express": "^4.18.1",
+    "express-basic-auth": "^1.2.1",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
     "json2csv": "^5.0.7"

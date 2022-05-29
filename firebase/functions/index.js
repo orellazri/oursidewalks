@@ -2,6 +2,8 @@ const functions = require("firebase-functions");
 const { BigQuery } = require("@google-cloud/bigquery");
 const { Parser } = require("json2csv");
 const { Client } = require("@googlemaps/google-maps-services-js");
+const express = require("express");
+const basicAuth = require("express-basic-auth");
 
 // Helper function to check if a string contains Hebrew characters
 function contains_heb(str) {
@@ -45,7 +47,15 @@ async function unifyReport(results) {
   }
 }
 
-exports.generateReport = functions.region("europe-west1").https.onRequest(async (request, response) => {
+const app = express();
+app.use(
+  basicAuth({
+    challenge: true,
+    users: { admin: process.env.PASSWORD },
+  })
+);
+
+app.get("/", async (request, response) => {
   try {
     // TODO: Change this after deploying web app
     response.set("Access-Control-Allow-Origin", "*");
@@ -94,3 +104,5 @@ exports.generateReport = functions.region("europe-west1").https.onRequest(async 
     response.status(500).send("Could not generate report");
   }
 });
+
+exports.generateReport = functions.region("europe-west1").https.onRequest(app);
