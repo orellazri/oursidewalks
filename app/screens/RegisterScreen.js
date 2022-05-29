@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, SafeAreaView, StyleSheet, Keyboard, ActivityIndicator } from "react-native";
+import { View, SafeAreaView, StyleSheet, Keyboard, ScrollView, KeyboardAvoidingView, ActivityIndicator } from "react-native";
 import Toast from "react-native-root-toast";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
@@ -85,16 +85,25 @@ export default function RegisterScreen({ navigation }) {
       {/* Title */}
       <Title text="הרשמה" />
 
-      {/* Form */}
-      <View style={styles.form}>
-        <TextInput label="שם מלא" value={fullName} onChangeText={setFullName} />
-        <TextInput label="מספר טלפון" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
-        <TextInput label="כתובת אימייל" value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" />
-        <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
-      </View>
-
-      {/* Continue Button */}
-      <ContinueButton onPress={handleSubmit} />
+      <KeyboardAvoidingView behavior="position">
+        <View>
+          {/* Form */}
+          <View style={styles.form}>
+            <TextInput label="שם מלא" value={fullName} onChangeText={setFullName} />
+            <TextInput label="מספר טלפון" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
+            <TextInput
+              label="כתובת אימייל"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoComplete="email"
+            />
+            <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
+          </View>
+          {/* Continue Button */}
+          <ContinueButton onPress={handleSubmit} />
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

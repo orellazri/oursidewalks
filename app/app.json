@@ -18,6 +18,9 @@
     "ios": {
       "bundleIdentifier": "org.ourstreets.ourstreets",
       "supportsTablet": false,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDd0ejNkK0UoSr3LqAScimBbP_-iSWGVIE"
+      },
       "infoPlist": {
         "NSCameraUsageDescription": "Allow access to camera to take photos of hazards",
         "NSPhotoLibraryUsageDescription": "Allow access to photo library to choose photos of hazards",
@@ -26,6 +29,11 @@
     },
     "android": {
       "package": "org.ourstreets.ourstreets",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCQzMqQZTEKzLWVg1i6vig42DjLIDoewJI"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#f4f4f4"
