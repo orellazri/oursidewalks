@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   buttonsContainer: {
-    marginTop: "60%",
+    marginTop: "50%",
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-evenly",
