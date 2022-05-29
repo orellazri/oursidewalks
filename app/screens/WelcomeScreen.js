@@ -4,8 +4,10 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { signOut } from "firebase/auth";
 import { setItemAsync } from "expo-secure-store";
+import * as Linking from "expo-linking";
+import { doc, getDoc } from "firebase/firestore";
 
-import { auth } from "../utils/firebase";
+import { db, auth } from "../utils/firebase";
 import { colors } from "../utils/data.js";
 import { useReport } from "../utils/ReportContext";
 import Header from "../components/Header.js";
@@ -15,6 +17,7 @@ export default function WelcomeScreen({ navigation }) {
   const { uid, setUid, user } = useReport();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [generateReportURL, setGenerateReportURL] = useState("");
 
   const window = useWindowDimensions();
 
@@ -34,6 +37,19 @@ export default function WelcomeScreen({ navigation }) {
     navigation.navigate("Terms");
   };
 
+  const handleGenerateReport = () => {
+    Linking.openURL(generateReportURL);
+  };
+
+  // Get generate report url meta
+  useEffect(async () => {
+    const docSnapshot = await getDoc(doc(db, "meta", "generate-report-url"));
+    if (docSnapshot.exists()) {
+      setGenerateReportURL(docSnapshot.data().value);
+    }
+  }, []);
+
+  // Back button on Android closes menu
   useEffect(() => {
     const backAction = () => {
       if (menuOpen) {
@@ -56,6 +72,13 @@ export default function WelcomeScreen({ navigation }) {
       menuContent = (
         <View style={{ paddingTop: "5%" }}>
           <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
+
+          {/* Admin options */}
+          {user.admin && (
+            <MenuItem text="ייצור דוח" onPress={handleGenerateReport}>
+              ייצור דור
+            </MenuItem>
+          )}
           <MenuItem text="התנתקות" onPress={handleLogout} last />
         </View>
       );

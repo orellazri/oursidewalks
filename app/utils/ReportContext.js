@@ -64,7 +64,7 @@ export const ReportProvider = ({ children }) => {
     const result = await getItemAsync("uid");
     if (result && result != "") {
       // User is stored. Validate uid and retrieve info
-      retrieveUserInfo(result);
+      await retrieveUserInfo(result);
     }
   }, []);
 
