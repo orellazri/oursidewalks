@@ -13,9 +13,10 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { signOut } from "firebase/auth";
-import { setItemAsync } from "expo-secure-store";
+import { getItemAsync, setItemAsync, deleteItemAsync } from "expo-secure-store";
 import * as Linking from "expo-linking";
 import { doc, getDoc } from "firebase/firestore";
+import * as Updates from "expo-updates";
 
 import { db, auth } from "../utils/firebase";
 import { colors } from "../utils/data.js";
@@ -31,8 +32,17 @@ export default function WelcomeScreen({ navigation }) {
 
   const window = useWindowDimensions();
 
-  // Get generate report url meta
   useEffect(async () => {
+    // Check first app launch and restart on Android to force RTL
+    const result = await getItemAsync("launched");
+    if (!result) {
+      await setItemAsync("launched", "true");
+      if (Platform.OS === "android") {
+        Updates.reloadAsync();
+      }
+    }
+
+    // Get generate report url meta
     const docSnapshot = await getDoc(doc(db, "meta", "generate-report-url"));
     if (docSnapshot.exists()) {
       setGenerateReportURL(docSnapshot.data().value);
