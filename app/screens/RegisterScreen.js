@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, SafeAreaView, StyleSheet, Keyboard, ScrollView, KeyboardAvoidingView, ActivityIndicator } from "react-native";
+import { View, SafeAreaView, StyleSheet, Keyboard, ActivityIndicator } from "react-native";
 import Toast from "react-native-root-toast";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
@@ -91,6 +91,7 @@ export default function RegisterScreen({ navigation }) {
         <TextInput label="כתובת אימייל" value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" />
         <TextInput label="סיסמה" value={password} onChangeText={setPassword} secureTextEntry={true} />
       </View>
+
       {/* Continue Button */}
       <ContinueButton onPress={handleSubmit} />
     </SafeAreaView>
