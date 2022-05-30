@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions, BackHandler } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+  BackHandler,
+  Platform,
+} from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { signOut } from "firebase/auth";
@@ -86,8 +96,8 @@ export default function WelcomeScreen({ navigation }) {
       // Guest menu
       menuContent = (
         <View>
-          <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} />
-          <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} last />
+          <MenuItem text="התחברות" page="Login" navigation={navigation} setMenuOpen={setMenuOpen} />
+          <MenuItem text="הרשמה" page="Register" navigation={navigation} setMenuOpen={setMenuOpen} last />
         </View>
       );
     }
@@ -202,7 +212,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: "100%",
     marginHorizontal: "10%",
-    marginVertical: "14%",
+    marginVertical: Platform.OS == "ios" ? "9%" : "5%",
   },
   termsContainer: {
     marginBottom: "10%",

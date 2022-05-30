@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 export default function Header({ setMenuOpen }) {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: "4%",
-    marginTop: "5%",
+    marginTop: Platform.OS == "ios" ? "1%" : "5%",
     zIndex: 1,
   },
   logo: {
