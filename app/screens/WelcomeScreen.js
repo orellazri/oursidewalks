@@ -13,7 +13,7 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { signOut } from "firebase/auth";
-import { getItemAsync, setItemAsync, deleteItemAsync } from "expo-secure-store";
+import { getItemAsync, setItemAsync } from "expo-secure-store";
 import * as Linking from "expo-linking";
 import { doc, getDoc } from "firebase/firestore";
 import * as Updates from "expo-updates";
