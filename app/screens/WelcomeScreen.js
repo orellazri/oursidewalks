@@ -31,26 +31,6 @@ export default function WelcomeScreen({ navigation }) {
 
   const window = useWindowDimensions();
 
-  const handleLogout = () => {
-    setMenuOpen(false);
-    signOut(auth).then(async () => {
-      setUid("");
-      await setItemAsync("uid", "");
-    });
-  };
-
-  const handlePressButton = () => {
-    navigation.navigate("ChooseHazardType");
-  };
-
-  const handleTerms = () => {
-    navigation.navigate("Terms");
-  };
-
-  const handleGenerateReport = () => {
-    Linking.openURL(generateReportURL);
-  };
-
   // Get generate report url meta
   useEffect(async () => {
     const docSnapshot = await getDoc(doc(db, "meta", "generate-report-url"));
@@ -73,6 +53,26 @@ export default function WelcomeScreen({ navigation }) {
     return () => backHandler.remove();
   }, [menuOpen]);
 
+  const handleLogout = () => {
+    setMenuOpen(false);
+    signOut(auth).then(async () => {
+      setUid("");
+      await setItemAsync("uid", "");
+    });
+  };
+
+  const handlePressButton = () => {
+    navigation.navigate("ChooseHazardType");
+  };
+
+  const handleTerms = () => {
+    navigation.navigate("Terms");
+  };
+
+  const handleGenerateReport = () => {
+    Linking.openURL(generateReportURL);
+  };
+
   // Menu
   if (menuOpen) {
     let menuContent;
@@ -84,11 +84,7 @@ export default function WelcomeScreen({ navigation }) {
           <Text style={{ fontSize: 17 }}>ברוך הבא, {user.full_name}</Text>
 
           {/* Admin options */}
-          {user.admin && (
-            <MenuItem text="ייצור דוח" onPress={handleGenerateReport}>
-              ייצור דור
-            </MenuItem>
-          )}
+          {user.admin && <MenuItem text="יצירת דוח" onPress={handleGenerateReport} />}
           <MenuItem text="התנתקות" onPress={handleLogout} last />
         </View>
       );

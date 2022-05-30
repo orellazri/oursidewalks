@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image, FlatList, useWindowDimensions } from "react-native";
 import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -11,6 +12,13 @@ export default function PhotosPreviewScreen({ navigation }) {
   const { photos, setPhotos, resetReport } = useReport();
 
   const window = useWindowDimensions();
+
+  // Go back when there are no photos
+  useEffect(() => {
+    if (photos.length == 0) {
+      navigation.navigate("PromptCapture");
+    }
+  }, [photos]);
 
   const handleClose = () => {
     navigation.navigate("PromptCapture");
@@ -38,7 +46,7 @@ export default function PhotosPreviewScreen({ navigation }) {
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      allowsEditing: false,
       asepct: [3, 4],
     });
 

@@ -16,7 +16,7 @@ export default function PromptCaptureScreen({ navigation }) {
   const openGallery = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      allowsEditing: false,
       asepct: [3, 4],
     });
 
