@@ -21,8 +21,12 @@ import TermsScreen from "./screens/TermsScreen";
 
 LogBox.ignoreLogs(["Setting a timer", "AsyncStorage has been extracted"]);
 
-I18nManager.allowRTL(true);
-I18nManager.forceRTL(true);
+try {
+  I18nManager.allowRTL(true);
+  I18nManager.forceRTL(true);
+} catch (e) {
+  console.log(e);
+}
 
 const Stack = createNativeStackNavigator();
 
