@@ -47,11 +47,14 @@ async function unifyReport(results) {
   }
 }
 
+// Initialize express and basic auth (username & password)
 const app = express();
+let users = {};
+users[process.env.USERNAME] = process.env.PASSWORD;
 app.use(
   basicAuth({
     challenge: true,
-    users: { admin: process.env.PASSWORD },
+    users,
   })
 );
 
