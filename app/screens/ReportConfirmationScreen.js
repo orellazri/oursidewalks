@@ -1,10 +1,12 @@
-import { StyleSheet, View, Text, TouchableOpacity, Share } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Share, Image, useWindowDimensions } from "react-native";
 
 import Logo from "../components/Logo";
 import { colors } from "../utils/data";
 import { useReport } from "../utils/ReportContext";
 
 export default function ReportConfirmationScreen({ navigation }) {
+  const window = useWindowDimensions();
+
   const { resetReport } = useReport();
 
   const handleBackButton = () => {
@@ -33,7 +35,8 @@ export default function ReportConfirmationScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.bottom}></View>
+      {/* Background */}
+      <Image source={require("../assets/images/confirmation-bg.png")} style={styles.background(window)} />
 
       {/* Logo */}
       <Logo />
@@ -63,13 +66,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: "5%",
   },
-  bottom: {
+  background: (window) => ({
     position: "absolute",
-    bottom: 0,
-    backgroundColor: colors.red,
-    width: "100%",
-    height: "50%",
-  },
+    top: 0,
+    resizeMode: "contain",
+    height: window.height,
+  }),
   textContainer: {
     marginTop: "90%",
   },
