@@ -18,6 +18,7 @@ import ReportConfirmationScreen from "./screens/ReportConfirmationScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import TermsScreen from "./screens/TermsScreen";
+import MyReportsScreen from "./screens/MyReportsScreen";
 
 LogBox.ignoreLogs(["Setting a timer", "AsyncStorage has been extracted"]);
 
@@ -72,6 +73,7 @@ export default function App() {
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Terms" component={TermsScreen} />
+            <Stack.Screen name="MyReports" component={MyReportsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </RootSiblingParent>

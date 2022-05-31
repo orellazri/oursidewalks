@@ -83,6 +83,10 @@ export default function WelcomeScreen({ navigation }) {
     Linking.openURL(generateReportURL);
   };
 
+  const handleMyReports = () => {
+    navigation.navigate("MyReports");
+  };
+
   // Menu
   if (menuOpen) {
     let menuContent;
@@ -95,6 +99,9 @@ export default function WelcomeScreen({ navigation }) {
 
           {/* Admin options */}
           {user.admin && <MenuItem text="יצירת דוח" onPress={handleGenerateReport} />}
+
+          {/* User options */}
+          <MenuItem text="הדיווחים שלי" onPress={handleMyReports} />
           <MenuItem text="התנתקות" onPress={handleLogout} last />
         </View>
       );

@@ -5,9 +5,9 @@ import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
 import { useReport } from "../utils/ReportContext";
+import { colors } from "../utils/data";
 import ContinueButton from "../components/ContinueButton";
 import Title from "../components/Title";
-import { colors } from "../utils/data";
 
 export default function ChooseHazardTypeScreen({ navigation }) {
   const [hazardTypes, setHazardTypes] = useState([]);
@@ -21,7 +21,8 @@ export default function ChooseHazardTypeScreen({ navigation }) {
     const querySnapshot = await getDocs(collection(db, "hazard-types"));
     let items = [];
     querySnapshot.forEach((doc) => {
-      items.push({ id: doc.id, title: doc.data().title, order: doc.data().order });
+      let data = doc.data();
+      items.push({ id: doc.id, title: data.title, order: data.order });
     });
 
     // Sort by order
