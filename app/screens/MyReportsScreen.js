@@ -63,6 +63,9 @@ export default function MyReportsScreen({ navigation }) {
       {/* Title */}
       <Title text="הדיווחים שלי" />
 
+      {/* No reports text */}
+      {reports.length == 0 && <Text style={styles.noReportsText}>לא נמצאו דיווחים.</Text>}
+
       {/* List */}
       <FlatList
         style={styles.list}
@@ -84,5 +87,9 @@ const styles = StyleSheet.create({
   list: {
     width: "90%",
     marginTop: 20,
+  },
+  noReportsText: {
+    fontSize: 17,
+    marginTop: "50%",
   },
 });
