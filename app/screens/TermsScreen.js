@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, ScrollView, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
 import { doc, getDoc } from "firebase/firestore";
-import RenderHtml from "react-native-render-html";
+import { WebView } from "react-native-webview";
 
 import { db } from "../utils/firebase";
 import BackButton from "../components/BackButton";
@@ -40,14 +40,7 @@ export default function TermsScreen({ navigation }) {
       <Title text="תנאי שימוש" style={styles.title} />
 
       {/* Terms */}
-      <ScrollView style={styles.termsContainer}>
-        <RenderHtml
-          contentWidth={width}
-          source={{
-            html: terms,
-          }}
-        />
-      </ScrollView>
+      <WebView style={styles.terms} source={{ uri: "https://ourstreets-app.web.app/" }} />
     </SafeAreaView>
   );
 }
@@ -55,12 +48,12 @@ export default function TermsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: "white",
   },
   title: {
     textAlign: "center",
   },
-  termsContainer: {
-    margin: "5%",
+  terms: {
+    marginTop: "5%",
   },
 });

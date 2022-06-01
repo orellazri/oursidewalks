@@ -1,6 +1,6 @@
 import "./App.css";
-import HomePage from "./pages/HomePage";
+import TermsPage from "./pages/TermsPage";
 
 export default function App() {
-  return <HomePage />;
+  return <TermsPage />;
 }
