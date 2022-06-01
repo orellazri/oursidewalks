@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
+import { SafeAreaView, Text, ScrollView, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
 import { doc, getDoc } from "firebase/firestore";
+import RenderHtml from "react-native-render-html";
 
 import { db } from "../utils/firebase";
 import BackButton from "../components/BackButton";
@@ -10,6 +11,8 @@ import { colors } from "../utils/data";
 export default function TermsScreen({ navigation }) {
   const [terms, setTerms] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const { width } = useWindowDimensions();
 
   useEffect(async () => {
     // Get hazard types from Firestore
@@ -38,7 +41,12 @@ export default function TermsScreen({ navigation }) {
 
       {/* Terms */}
       <ScrollView style={styles.termsContainer}>
-        <Text style={styles.termsText}>{terms}</Text>
+        <RenderHtml
+          contentWidth={width}
+          source={{
+            html: terms,
+          }}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -54,9 +62,5 @@ const styles = StyleSheet.create({
   },
   termsContainer: {
     margin: "5%",
-  },
-  termsText: {
-    direction: "rtl",
-    textAlign: "left",
   },
 });
