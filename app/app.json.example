@@ -4,7 +4,7 @@
     "slug": "ourstreets",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-ios.png",
     "primaryColor": "#FFCB39",
     "splash": {
       "image": "./assets/splash.png",
@@ -17,6 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "org.ourstreets.ourstreets",
+      "buildNumber": "X",
       "supportsTablet": false,
       "config": {
         "googleMapsApiKey": "XXX"
