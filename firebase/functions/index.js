@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 const { BigQuery } = require("@google-cloud/bigquery");
 const { Parser } = require("json2csv");
 const { Client } = require("@googlemaps/google-maps-services-js");
@@ -76,6 +77,12 @@ let transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD,
   },
 });
+
+// var serviceAccount = require("./serviceaccount.json");
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
+admin.initializeApp();
 
 app.get("/", async (request, response) => {
   try {
@@ -168,6 +175,16 @@ exports.sendReportEmail = functions
       const client = new Client({});
       let [address, city] = await reverseGeocode(client, data.location._latitude, data.location._longitude);
 
+      // Get photos urls
+      let photoUrls = [];
+      for (photo of data.photos) {
+        const bucket = admin.storage().bucket("gs://ourstreets-app.appspot.com");
+        const url = await bucket
+          .file("0ed43a25-8d17-4e58-b46c-fac3b2c7c506")
+          .getSignedUrl({ action: "read", expires: "10-25-2500" });
+        photoUrls.push(url[0]);
+      }
+
       let mailContent = `
         <h2>דיווח חדש התקבל</h2>
         <p><strong>סוג מפגע: </strong>${hazard_title}</p>
@@ -184,12 +201,20 @@ exports.sendReportEmail = functions
           <p><strong>מספר טלפון: </strong>${phone}</p>`;
       }
 
+      let attachments = [];
+      let i = 0;
+      for (url of photoUrls) {
+        attachments.push({ filename: `${i}.jpg`, path: url });
+        i++;
+      }
+
       // Send email
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         subject: "דיווח חדש התקבל",
         html: mailContent,
+        attachments,
       };
 
       return transporter.sendMail(mailOptions, (error, info) => {
