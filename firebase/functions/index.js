@@ -4,10 +4,37 @@ const { Parser } = require("json2csv");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const express = require("express");
 const basicAuth = require("express-basic-auth");
+const nodemailer = require("nodemailer");
 
 // Helper function to check if a string contains Hebrew characters
 function contains_heb(str) {
   return /[\u0590-\u05FF]/.test(str);
+}
+
+// Reverse geocode location latitude & longitude to address and city
+async function reverseGeocode(client, latitude, longitude) {
+  const response = await client.reverseGeocode({
+    params: {
+      latlng: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+      langauge: "iw",
+      key: process.env.MAPS_API_KEY,
+    },
+  });
+  let address = response.data.results[0].formatted_address;
+  let city = "";
+  for (comp of response.data.results[0].address_components) {
+    if (comp.types.includes("political")) {
+      if (city == "") {
+        city = comp.short_name;
+      }
+      if (contains_heb(comp.short_name)) {
+        city = comp.short_name;
+        break;
+      }
+    }
+  }
+
+  return [address, city];
 }
 
 // Unify report
@@ -24,26 +51,9 @@ async function unifyReport(results) {
     item.consent = item.consent == "true" ? "כן" : "לא";
 
     // Reverse geocode location
-    const response = await client.reverseGeocode({
-      params: {
-        latlng: { lat: parseFloat(item.latitude), lng: parseFloat(item.longitude) },
-        langauge: "iw",
-        key: process.env.MAPS_API_KEY,
-      },
-    });
-    item.address = response.data.results[0].formatted_address;
-    item.city = "";
-    for (comp of response.data.results[0].address_components) {
-      if (comp.types.includes("political")) {
-        if (item.city == "") {
-          item.city = comp.short_name;
-        }
-        if (contains_heb(comp.short_name)) {
-          item.city = comp.short_name;
-          break;
-        }
-      }
-    }
+    let geocode = await reverseGeocode(client, item.latitude, item.longitude);
+    item.address = geocode[0];
+    item.city = geocode[1];
   }
 }
 
@@ -58,11 +68,17 @@ app.use(
   })
 );
 
+// Initialize nodemailer to send emails
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 app.get("/", async (request, response) => {
   try {
-    // TODO: Change this after deploying web app
-    response.set("Access-Control-Allow-Origin", "*");
-
     const bigquery = new BigQuery({ projectId: "ourstreets-app" });
     const results = await bigquery.query({
       query:
@@ -109,3 +125,74 @@ app.get("/", async (request, response) => {
 });
 
 exports.generateReport = functions.region("europe-west1").https.onRequest(app);
+
+exports.sendReportEmail = functions
+  .region("europe-west1")
+  .firestore.document("reports/{docId}")
+  .onCreate(async (snap, context) => {
+    try {
+      // Get created document's data
+      let data = snap.data();
+
+      // Fetch user details
+      let full_name = "";
+      let email = "";
+      let phone = "";
+
+      if (data.user_id != "") {
+        const bigquery = new BigQuery({ projectId: "ourstreets-app" });
+        const results = await bigquery.query({
+          query: `SELECT 
+          JSON_VALUE(users.data, '$.full_name') AS full_name,
+          JSON_VALUE(users.data, '$.email') AS email,
+          JSON_VALUE(users.data, '$.phone') AS phone,
+        FROM \`ourstreets-app.firestore_users.users_raw_latest\` users
+        WHERE users.document_id = "${data.user_id}"`,
+        });
+        full_name = results[0][0].full_name;
+        email = results[0][0].email;
+        phone = results[0][0].phone;
+      }
+
+      // Fetch hazard type
+      const bigquery = new BigQuery({ projectId: "ourstreets-app" });
+      const results = await bigquery.query({
+        query: `SELECT 
+                JSON_VALUE(hazard_types.data, '$.title') AS title,
+              FROM \`ourstreets-app.firestore_hazard_types.hazard_types_raw_latest\` hazard_types
+              WHERE hazard_types.document_id = "${data.hazard_type}"`,
+      });
+      let { title: hazard_title } = results[0][0];
+
+      // Reverse geocode location
+      const client = new Client({});
+      let [address, city] = await reverseGeocode(client, data.location._latitude, data.location._longitude);
+
+      // Send email
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: "דיווח חדש התקבל",
+        html: `
+        <h2>דיווח חדש התקבל</h2>
+        <p><strong>סוג מפגע: </strong>${hazard_title}</p>
+        <p><strong>טקסט חופשי: </strong>${data.freetext}</p>
+        <p><strong>כתובת: </strong>${address}</p>
+        <p><strong>עיר: </strong>${city}</p>
+        <p><strong>הסכמה לשיתוף פרטים: </strong>${data.consent == "true" ? "כן" : "לא"}</p>
+        <hr />
+        <p><strong>שם: </strong>${full_name}</p>
+        <p><strong>אימייל: </strong>${email}</p>
+        <p><strong>מספר טלפון: </strong>${phone}</p>
+      `,
+      };
+
+      return transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
