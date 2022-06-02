@@ -177,11 +177,9 @@ exports.sendReportEmail = functions
 
       // Get photos urls
       let photoUrls = [];
-      for (photo of data.photos) {
+      for (photoUrl of data.photos) {
         const bucket = admin.storage().bucket("gs://ourstreets-app.appspot.com");
-        const url = await bucket
-          .file("0ed43a25-8d17-4e58-b46c-fac3b2c7c506")
-          .getSignedUrl({ action: "read", expires: "10-25-2500" });
+        const url = await bucket.file(photoUrl).getSignedUrl({ action: "read", expires: "10-25-2500" });
         photoUrls.push(url[0]);
       }
 
