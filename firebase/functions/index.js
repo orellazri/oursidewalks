@@ -168,23 +168,28 @@ exports.sendReportEmail = functions
       const client = new Client({});
       let [address, city] = await reverseGeocode(client, data.location._latitude, data.location._longitude);
 
+      let mailContent = `
+        <h2>דיווח חדש התקבל</h2>
+        <p><strong>סוג מפגע: </strong>${hazard_title}</p>
+        <p><strong>טקסט חופשי: </strong>${data.freetext}</p>
+        <p><strong>כתובת: </strong>${address}</p>
+        <p><strong>עיר: </strong>${city}</p>`;
+
+      if (data.user_id != "") {
+        mailContent += `
+          <hr />
+          <p><strong>הסכמה לשיתוף פרטים: </strong>${data.consent == "true" ? "כן" : "לא"}</p>
+          <p><strong>שם: </strong>${full_name}</p>
+          <p><strong>אימייל: </strong>${email}</p>
+          <p><strong>מספר טלפון: </strong>${phone}</p>`;
+      }
+
       // Send email
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         subject: "דיווח חדש התקבל",
-        html: `
-        <h2>דיווח חדש התקבל</h2>
-        <p><strong>סוג מפגע: </strong>${hazard_title}</p>
-        <p><strong>טקסט חופשי: </strong>${data.freetext}</p>
-        <p><strong>כתובת: </strong>${address}</p>
-        <p><strong>עיר: </strong>${city}</p>
-        <p><strong>הסכמה לשיתוף פרטים: </strong>${data.consent == "true" ? "כן" : "לא"}</p>
-        <hr />
-        <p><strong>שם: </strong>${full_name}</p>
-        <p><strong>אימייל: </strong>${email}</p>
-        <p><strong>מספר טלפון: </strong>${phone}</p>
-      `,
+        html: mailContent,
       };
 
       return transporter.sendMail(mailOptions, (error, info) => {
