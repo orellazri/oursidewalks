@@ -30,6 +30,7 @@
     },
     "android": {
       "package": "org.ourstreets.ourstreets",
+      "versionCode": X,
       "config": {
         "googleMaps": {
           "apiKey": "XXX"
