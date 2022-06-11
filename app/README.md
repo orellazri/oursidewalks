@@ -2,7 +2,9 @@ This is the React Native mobile app.
 
 ## Usage
 
-- Create a copy of `app.json.example`named `app.json`, and fill with the Google Credentials API Keys.
+- Create a copy of `.env.example`named `.env`, and fill with the Google Credentials API Keys.
+
+These keys are also loaded when building with EAS via Expo's Secrets. You might need to make sure they are set up correctly there as well.
 
 In the `utils` directory:
 
