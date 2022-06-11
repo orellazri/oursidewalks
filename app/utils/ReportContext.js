@@ -2,7 +2,7 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { doc, getDoc } from "firebase/firestore";
 
-import { db } from "../utils/firebase";
+import { db } from "./firebase";
 
 const ReportContext = createContext(null);
 
