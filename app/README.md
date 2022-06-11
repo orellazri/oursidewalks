@@ -23,8 +23,13 @@ In `app.config.js` increment `buildNumber` under `ios` and `versionCode` under `
 
 **Build for Android:**
 
-`eas build -p android`
+```
+eas build -p android
+```
 
 **Build for iOS:**
 
-`eas submit -p ios`
+```
+eas build -p ios
+eas submit -p ios
+```
