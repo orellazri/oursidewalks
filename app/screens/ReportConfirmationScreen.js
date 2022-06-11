@@ -35,11 +35,14 @@ export default function ReportConfirmationScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Background */}
-      <Image source={require("../assets/images/confirmation-bg.png")} style={styles.background(window)} />
+      {/* Red background */}
+      <View style={styles.redBackground(window)}></View>
 
       {/* Logo */}
       <Logo />
+
+      {/* Background */}
+      <Image source={require("../assets/images/confirmation-logo.png")} style={styles.confirmationLogo} />
 
       {/* Text */}
       <View style={styles.textContainer}>
@@ -66,12 +69,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: "5%",
   },
-  background: (window) => ({
+  redBackground: (window) => ({
+    backgroundColor: colors.red,
+    bottom: 0,
+    width: window.width,
+    height: window.height / 1.5,
     position: "absolute",
-    top: 0,
-    resizeMode: "contain",
-    height: window.height,
   }),
+  confirmationLogo: {
+    position: "absolute",
+    top: "20%",
+    resizeMode: "contain",
+    height: 200,
+  },
   textContainer: {
     marginTop: "90%",
   },
