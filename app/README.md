@@ -13,7 +13,12 @@ In the `utils` directory:
 
 Run:
 
-```
-npm install
-npm start
-```
+`npm install` and `npm start` or `npm run ios --simulator="iPhone 12"`
+
+Build for Android:
+
+`eas build -p android`
+
+Build for iOS:
+
+`eas submit -p ios`
