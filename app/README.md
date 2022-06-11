@@ -11,14 +11,20 @@ In the `utils` directory:
 - Create a copy of `firebase.example.js` named `firebase.js`, and fill with the correct configuration values.
 - Create a copy of `keys.example.js` named `keys.js`, and fill with the necessary keys.
 
-Run:
+## Run:
 
 `npm install` and `npm start` or `npm run ios --simulator="iPhone 12"`
 
-Build for Android:
+## Build:
+
+In the `utils` directory, temporarily remove/empty the `.gitignore` file, and then revert the changes after executing the build command.
+
+In `app.config.js` increment `buildNumber` under `ios` and `versionCode` under `android`.
+
+**Build for Android:**
 
 `eas build -p android`
 
-Build for iOS:
+**Build for iOS:**
 
 `eas submit -p ios`
