@@ -13,9 +13,9 @@ This is a React Native application for "Our Streets" - An organization that prom
 
 ## Screenshots
 <p>
-  <img width="200" src="https://user-images.githubusercontent.com/32670283/158578680-3c7c1b54-0282-477a-8fd0-c2294ad43f7f.png" />
-  <img width="200" src="https://user-images.githubusercontent.com/99403939/166322478-12081e8a-b19f-40d8-893e-a799bcc0cd1d.png" />
-  <img width="200" src="https://user-images.githubusercontent.com/99403939/166322353-a277b121-4552-42b3-ac93-f07ca23a15bc.png" />
-  <img width="200" src="https://user-images.githubusercontent.com/32670283/158579585-7c432993-2a16-4663-9f5a-b3fd2ff47709.png" />
-  <img width="200" src="https://user-images.githubusercontent.com/32670283/158579753-dc708a76-5e53-4124-a9fd-3d2d6d19ab80.png" />
+  <img width="250" src="https://user-images.githubusercontent.com/32670283/158578680-3c7c1b54-0282-477a-8fd0-c2294ad43f7f.png" />
+  <img width="250" src="https://user-images.githubusercontent.com/99403939/166322478-12081e8a-b19f-40d8-893e-a799bcc0cd1d.png" />
+  <img width="250" src="https://user-images.githubusercontent.com/99403939/166322353-a277b121-4552-42b3-ac93-f07ca23a15bc.png" />
+  <img width="250" src="https://user-images.githubusercontent.com/32670283/158579585-7c432993-2a16-4663-9f5a-b3fd2ff47709.png" />
+  <img width="250" src="https://user-images.githubusercontent.com/32670283/158579753-dc708a76-5e53-4124-a9fd-3d2d6d19ab80.png" />
 </p>
