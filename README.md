@@ -8,7 +8,7 @@ This is a React Native application for "Our Streets" - An organization that prom
 
 📚 Check out our [wiki](https://github.com/orellazri/ourstreets/wiki) for detailed information!
 
-<a href="#"><img height="40" src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png" /></a>
+<a href="https://apps.apple.com/il/app/%D7%91%D7%A8%D7%97%D7%95%D7%91%D7%95%D7%AA-%D7%A9%D7%9C%D7%A0%D7%95/id1627050270"><img height="40" src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png" /></a>
 <a href="https://play.google.com/store/apps/details?id=org.ourstreets.ourstreets"><img height="40" src="https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0" /></a>
 
 
