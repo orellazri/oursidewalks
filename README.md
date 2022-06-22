@@ -1,4 +1,4 @@
-#   Our Streets
+# 🚦  Our Streets
 
 <p align="center">
 <img src="banner.jpg">
