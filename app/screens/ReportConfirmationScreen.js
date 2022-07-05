@@ -1,13 +1,26 @@
+import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Share, Image, useWindowDimensions } from "react-native";
+import { doc, getDoc } from "firebase/firestore";
 
+import { db } from "../utils/firebase";
 import Logo from "../components/Logo";
 import { colors } from "../utils/data";
 import { useReport } from "../utils/ReportContext";
 
 export default function ReportConfirmationScreen({ navigation }) {
+  const [appStoreLink, setAppStoreLink] = useState("");
+
   const window = useWindowDimensions();
 
   const { resetReport } = useReport();
+
+  useEffect(async () => {
+    // Get app store link meta
+    const docSnapshot = await getDoc(doc(db, "meta", "app-store-link"));
+    if (docSnapshot.exists()) {
+      setAppStoreLink(docSnapshot.data().value);
+    }
+  }, []);
 
   const handleBackButton = () => {
     navigation.navigate("Welcome");
@@ -16,18 +29,9 @@ export default function ReportConfirmationScreen({ navigation }) {
 
   const handleShareButton = async () => {
     try {
-      const result = await Share.share({
-        message: "גם אני דיווחתי דרך אפליקציית ברחובות שלנו!",
+      await Share.share({
+        message: "גם אני דיווחתי דרך אפליקציית ברחובות שלנו!\n" + appStoreLink,
       });
-      // if (result.action === Share.sharedAction) {
-      //   if (result.activityType) {
-      //     // shared with activity type of result.activityType
-      //   } else {
-      //     // shared
-      //   }
-      // } else if (result.action === Share.dismissedAction) {
-      //   // dismissed
-      // }
     } catch (err) {
       console.log(err);
     }
