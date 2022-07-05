@@ -50,6 +50,13 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
+              name="ReportConfirmation"
+              component={ReportConfirmationScreen}
+              options={{
+                gestureEnabled: false,
+              }}
+            />
+            <Stack.Screen
               name="Welcome"
               component={WelcomeScreen}
               options={{
@@ -63,13 +70,7 @@ export default function App() {
             <Stack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
             <Stack.Screen name="FillReport" component={FillReportScreen} />
             <Stack.Screen name="ReportSummary" component={ReportSummaryScreen} />
-            <Stack.Screen
-              name="ReportConfirmation"
-              component={ReportConfirmationScreen}
-              options={{
-                gestureEnabled: false,
-              }}
-            />
+
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Terms" component={TermsScreen} />

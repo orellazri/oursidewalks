@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     height: 200,
   },
   textContainer: {
-    marginTop: "90%",
+    position: "absolute",
+    top: "60%",
   },
   title: {
     fontFamily: "Assistant-Bold",
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
     color: "white",
   },
   buttonsContainer: {
-    marginTop: "50%",
+    position: "absolute",
+    top: "70%",
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-evenly",
