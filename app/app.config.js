@@ -18,7 +18,7 @@ export default {
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "org.ourstreets.ourstreets",
-    buildNumber: "5",
+    buildNumber: "6",
     supportsTablet: false,
     config: {
       googleMapsApiKey: process.env.IOS_MAPS_API_KEY,
@@ -31,7 +31,7 @@ export default {
   },
   android: {
     package: "org.ourstreets.ourstreets",
-    versionCode: 5,
+    versionCode: 6,
     config: {
       googleMaps: {
         apiKey: process.env.ANDROID_MAPS_API_KEY,
