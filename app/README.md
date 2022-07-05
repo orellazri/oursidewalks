@@ -19,7 +19,7 @@ In the `utils` directory:
 
 In the `utils` directory, temporarily remove/empty the `.gitignore` file, and then revert the changes after executing the build command.
 
-In `app.config.js` increment `buildNumber` under `ios` and `versionCode` under `android`.
+In `app.config.js` increment `version`, `buildNumber` under `ios` and `versionCode` under `android`.
 
 **Build for Android:**
 

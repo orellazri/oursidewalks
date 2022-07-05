@@ -3,7 +3,7 @@ import "dotenv/config";
 export default {
   name: "ברחובות שלנו",
   slug: "ourstreets",
-  version: "1.0.0",
+  version: "1.0.1",
   orientation: "portrait",
   icon: "./assets/icon-ios.png",
   primaryColor: "#FFCB39",
